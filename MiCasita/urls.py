@@ -24,8 +24,10 @@ urlpatterns = [
     url(r'^clientes/', 'app.views.clientes', name='clientes'),
     url(r'^desempeno/', 'app.views.desempeno', name='desempeno'),
 
-    url(r'^$', 'login.views.userlogin', name='login'),
-    url(r'^salir/$', 'login.views.LogOut', name='logout'),
+
+    #login
+    url(r'^$', 'users.views.userlogin', name='login'),
+    url(r'^salir/$', 'users.views.LogOut', name='logout'),
 ]
 
 

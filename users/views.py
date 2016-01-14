@@ -26,20 +26,20 @@ def userlogin(request):
         if 'login_form' in request.POST:
             login_form = LoginForm(request.POST)
             if login_form.is_valid():
-                LogIn(request, login_form.cleaned_data['username'],
-                      login_form.cleaned_data['password'])
-                user = User.objects.get(username = login_form.cleaned_data['username'])
-                #user = User.objects.filter(request.user.username == login_form.cleaned_data['username'])
-                if user.tipo == 'NT' :
-                    return redirect('http://localhost:8000/nutriologo/')
-
-                elif user.tipo == 'AM':
-                    return redirect('http://localhost:8000/administrador')
-                return redirect('http://localhost:8000/home')
+                LogIn(request, login_form.cleaned_data['username'], login_form.cleaned_data['password'])
+                return redirect('agregar_clientes')
+                #user = User.objects.get(username = login_form.cleaned_data['username'])
+                # #user = User.objects.filter(request.user.username == login_form.cleaned_data['username'])
+                # if user.tipo == 'NT' :
+                #     return redirect('http://localhost:8000/nutriologo/')
+                #
+                # elif user.tipo == 'AM':
+                #     return redirect('http://localhost:8000/administrador')
+                # return redirect('http://localhost:8000/home')
     else:
-        user_register = UserRegisterForm()
+        #user_register = UserRegisterForm()
         login_form = LoginForm()
-    return render(request, 'login.html', {'user_register': user_register, 'login_form': login_form })
+    return render(request, 'login.html', {'login_form': login_form })
 
 
 

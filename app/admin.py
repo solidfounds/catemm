@@ -1,21 +1,22 @@
 from django.contrib import admin
-from .models import Sucursales, Personal,PrimerRegistro,SegundoRegistro, TercerRegistro
+from .models import  PrimerRegistro,SegundoRegistro, TercerRegistro
 # Register your models here.
 """
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     pass
 """
-@admin.register(Sucursales)
-class SucursalesAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'direccion', 'estado', 'telefono', 'renta', 'luz', 'agua','varios')
-    list_filter = ('estado',)
+# @admin.register(Sucursales)
+# class SucursalesAdmin(admin.ModelAdmin):
+#     #list_display = ('nombre', 'direccion', 'estado', 'telefono', 'renta', 'luz', 'agua','varios')
+#     #list_filter = ('estado',)
+#     pass
 
-@admin.register(Personal)
-class AsesorAdmin(admin.ModelAdmin):
-    #list_display = ('clave','nombre', 'apellidos', 'porcentaje_ganancia', 'sucursal', 'num_de_cuenta', 'banco', 'telefono_casa', 'email', 'ife')
-    #list_filter = ('sucursal__nombre','porcentaje_ganancia')
-    pass
+# @admin.register(Personal)
+# class AsesorAdmin(admin.ModelAdmin):
+#     #list_display = ('clave','nombre', 'apellidos', 'porcentaje_ganancia', 'sucursal', 'num_de_cuenta', 'banco', 'telefono_casa', 'email', 'ife')
+#     #list_filter = ('sucursal__nombre','porcentaje_ganancia')
+#     pass
 
 
 @admin.register(PrimerRegistro)

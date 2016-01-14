@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'login',
+    'users',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,4 +112,4 @@ TEMPLATE_DIRS = (
 
 MEDIA_URL = '/media/'
 
-AUTH_PROFILE_MODULE = 'app.Personal'
+AUTH_USER_MODEL = 'users.User'
