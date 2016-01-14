@@ -16,6 +16,8 @@ Including another URLconf
 
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
+from django.conf.urls import patterns, url
+from users.views import userlogin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -24,11 +26,13 @@ urlpatterns = [
     url(r'^clientes/', 'app.views.clientes', name='clientes'),
     url(r'^desempeno/', 'app.views.desempeno', name='desempeno'),
 
+    url(r'^$', userlogin.as_view(), name='login'),
+    	#url(r'^$', 'users.views.userlogin', name='login'),
+	url(r'^salir/$', 'users.views.LogOut', name='logout')
 
-    #login
-    url(r'^$', 'users.views.userlogin', name='login'),
-    url(r'^salir/$', 'users.views.LogOut', name='logout'),
 ]
+
+
 
 
 from django.conf import settings

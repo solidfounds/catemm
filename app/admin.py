@@ -1,16 +1,16 @@
 from django.contrib import admin
 from .models import  PrimerRegistro,SegundoRegistro, TercerRegistro
+from users.models import Sucursal
 # Register your models here.
 """
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     pass
 """
-# @admin.register(Sucursales)
-# class SucursalesAdmin(admin.ModelAdmin):
-#     #list_display = ('nombre', 'direccion', 'estado', 'telefono', 'renta', 'luz', 'agua','varios')
-#     #list_filter = ('estado',)
-#     pass
+
+
+
+
 
 # @admin.register(Personal)
 # class AsesorAdmin(admin.ModelAdmin):

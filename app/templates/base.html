@@ -73,9 +73,10 @@
             <div class="dropdown-menu" aria-labelledby="Preview">
             <div class="dropdown-item">
               {{ request.user}}
+               {{ request.sucursal.nombre }}
             </div>
 
-            <a class="dropdown-item" href="#">Cerrar sesion</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesion</a>
         </div>
         </li>
           <a class="nav-item nav-link pull-xs-right" href="{% url "desempeno" %}">Desempeño</a>

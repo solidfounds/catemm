@@ -19,8 +19,9 @@ def clientes(request):
 def desempeno(request):
 	return render(request, 'desempeno.html')
 
+
+
 def primerRegistro(request):
-	user = request.user
 	if request.method == 'POST':
 			form = PrimerRegistroFORM(request.POST, request.FILES)
 			if form.is_valid():

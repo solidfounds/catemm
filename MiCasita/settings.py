@@ -104,7 +104,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'login.User'
+#AUTH_USER_MODEL = 'login.User'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
@@ -113,3 +113,4 @@ TEMPLATE_DIRS = (
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'users.User'
+AUTH_PROFILE_MODULE = 'users.User'
