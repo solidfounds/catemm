@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .forms import PrimerRegistroFORM
+from django.http import HttpResponseRedirect
+
 
 # Create your views here.
 
@@ -18,5 +20,14 @@ def desempeno(request):
 	return render(request, 'desempeno.html')
 
 def primerRegistro(request):
-	form = PrimerRegistroFORM()
+	user = request.user
+	if request.method == 'POST':
+			form = PrimerRegistroFORM(request.POST, request.FILES)
+			if form.is_valid():
+				post = form.save(commit=False)
+				post.operador = request.user
+				post.save()
+				return HttpResponseRedirect('/desempeno/')
+	else:
+		form = PrimerRegistroFORM()
 	return render(request,'index.html',{'form':form} )

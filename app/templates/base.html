@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"  crossorigin="anonymous"></script>
 
+
 	<!-- Latest compiled and minified JavaScript -->
     <!--
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" ="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -19,10 +20,6 @@
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
      -->
-
-
-
-
 	<style>
         .ard {
           padding-top: 2rem;
@@ -65,19 +62,25 @@
           <a class="nav-item nav-link pull-xs-right" href="#"></a>
           <a class="nav-item nav-link pull-xs-right" href="#"></a>
           <a class="nav-item nav-link pull-xs-right" href="#"></a>
+          <a class="nav-item nav-link pull-xs-right" href="#"></a>
+          <a class="nav-item nav-link pull-xs-right" href="#"></a>
+          <a class="nav-item nav-link pull-xs-right" href="#"></a>
+          <a class="nav-item nav-link pull-xs-right" href="#"></a>
           <li class="nav-item dropdown pull-xs-right">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Dropdown
+              <i class="fa fa-bars fa-1x"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="Preview">
-            <a class="dropdown-item" href="#">Dropdown Link 1</a>
-            <a class="dropdown-item" href="#">Dropdown Link 2</a>
-            <a class="dropdown-item" href="#">Dropdown Link 3</a>
+            <div class="dropdown-item">
+              {{ request.user}}
+            </div>
+
+            <a class="dropdown-item" href="#">Cerrar sesion</a>
         </div>
         </li>
-          <a class="nav-item nav-link pull-xs-right" href="#">Features</a>
-        <a class="nav-item nav-link pull-xs-right" href="#">Pricing</a>
-        <a class="nav-item nav-link pull-xs-right" href="#">About</a>
+          <a class="nav-item nav-link pull-xs-right" href="{% url "desempeno" %}">Desempeño</a>
+        <a class="nav-item nav-link pull-xs-right" href="{% url "clientes" %}">Clientes</a>
+        <a class="nav-item nav-link pull-xs-right" href="{% url "agregar_clientes" %}">Agregar un nuevo cliente</a>
       </div>
     </nav>
 

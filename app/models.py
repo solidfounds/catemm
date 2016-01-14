@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Sucursales(models.Model):
@@ -26,7 +26,15 @@ PORCENTAJE_GANANCIA_CHOICES = (
     ('5', '5%'),
     ('6', '6%'),
 )
-class Asesor(models.Model):
+
+
+
+PERSONAL_CHOICES = (
+    ('1', 'Asesor'),
+    ('2', 'Asistente'),
+)
+class Personal(models.Model):
+    user = models.OneToOneField(User, unique=True)
     nombre = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=70)
     porcentaje_ganancia = models.CharField(max_length=1, choices=PORCENTAJE_GANANCIA_CHOICES)
@@ -38,9 +46,10 @@ class Asesor(models.Model):
     telefono_celular= models.SmallIntegerField()
     email = models.EmailField()
     ife = models.FileField(upload_to='media/empleados/ifes')
+    tipo_personal = models.CharField(max_length=1, choices=PERSONAL_CHOICES)
     
     class Meta:
-        verbose_name_plural = 'Asesor'
+        verbose_name_plural = 'Personal'
     def __str__(self):
         return self.nombre
 
@@ -50,16 +59,16 @@ class PrimerRegistro(models.Model):
     apellidos = models.CharField(max_length=80)
     direccion = models.TextField()
     nsn = models.CharField(max_length=15)
-    telefono_casa = models.SmallIntegerField()
-    telefono_celular = models.SmallIntegerField()
+    telefono= models.SmallIntegerField()
     empresa = models.CharField(max_length=254)
     registro_patronal = models.CharField(max_length=15)
-    facturacion = models.CharField(max_length=254)
     comision = models.DecimalField(max_digits=7, decimal_places=2)
-    acta_de_nacimiento = models.BooleanField()
     ife = models.FileField(upload_to='media/ifes')
-    operador_que_lo_registro = models.OneToOneField(Asesor)
+
     email = models.EmailField()
+    numero_de_cuenta = models.CharField(max_length=16)
+    banco = models.CharField(max_length=15)
+    operador = models.OneToOneField(Personal)
     
     class Meta:
         verbose_name_plural = 'Primer Registro'
@@ -106,8 +115,7 @@ class SegundoRegistro(models.Model):
     fecha = models.DateField(auto_now_add=True)
     caratula =  models.CharField(max_length=50)
     tarjeda_de_mejoravit = models.FileField(upload_to='media/targeta_infonavit')
-    numero_cuenta = models.CharField(max_length=50)
-    banco = models.CharField(max_length=50)
+
 
 
     class Meta:

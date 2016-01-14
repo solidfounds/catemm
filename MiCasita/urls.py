@@ -19,7 +19,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^home', 'app.views.primerRegistro', name='home'),
+    url(r'^home', 'app.views.primerRegistro', name='agregar_clientes'),
     url(r'^nota_remision/', 'app.views.nota_remision', name='nota'),
     url(r'^clientes/', 'app.views.clientes', name='clientes'),
     url(r'^desempeno/', 'app.views.desempeno', name='desempeno'),

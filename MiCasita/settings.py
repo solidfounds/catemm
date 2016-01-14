@@ -111,3 +111,5 @@ TEMPLATE_DIRS = (
 )
 
 MEDIA_URL = '/media/'
+
+AUTH_PROFILE_MODULE = 'app.Personal'

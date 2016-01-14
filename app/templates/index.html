@@ -6,7 +6,7 @@
 {% block contenido %}
 
     <div class="card-inverse">
-        <form class="">
+        <form  method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
               <div class="form-group  row ">
@@ -17,58 +17,58 @@
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 form-control-label">Apellidos:</label>
-                <div class="col-sm-4">{{ form.apellidos }}</div>
+                <div class="col-sm-4">{{ form.apellidos }}
+                {{ form.apellidos.errors }}</div>
               </div>
               <div class="form-group  row">
                 <label class="col-sm-2 form-control-label">Dirección:</label>
-                <div class="col-sm-6">{{ form.direccion }}</div>
+                <div class="col-sm-6">{{ form.direccion }}
+                {{ form.direccion.errors }}</div>
               </div>
               <div class="form-group row ">
                 <label class="col-sm-2 form-control-label">nsn:</label>
-                <div class="col-sm-4">{{ form.nsn }}</div>
+                <div class="col-sm-4">{{ form.nsn }}
+                {{ form.nsn.errors }}</div>
               </div>
                   <div class="form-group row ">
                 <label class="col-sm-2 form-control-label">Telefono de casa:</label>
-                <div class="col-sm-4">{{ form.telefono_casa }}</div>
+                <div class="col-sm-4">{{ form.telefono}}
+                {{ form.telefono.errors }}</div>
               </div>
-              <div class="form-group row ">
-                <label class="col-sm-2 form-control-label">Telefono celular:</label>
-                <div class="col-sm-4">{{ form.telefono_celular }}</div>
-              </div>
-
               <div class="form-group row">
                 <label class="col-sm-2 form-control-label">Empresa:</label>
-                <div class="col-sm-4">{{ form.empresa }}</div>
+                <div class="col-sm-4">{{ form.empresa }}
+                {{ form.empresa.errors }}</div>
               </div>
               <div class="form-group  row">
                 <label class="col-sm-2 form-control-label">Registro Patronal:</label>
-                <div class="col-sm-4">{{ form.registro_patronal }}</div>
-              </div>
-              <div class="form-group row ">
-                <label class="col-sm-2 form-control-label">Facturación:</label>
-                <div class="col-sm-4">{{ form.facturacion }}</div>
+                <div class="col-sm-4">{{ form.registro_patronal }}
+                {{ form.registro_patronal.errors }}</div>
               </div>
               <div class="form-group row ">
                 <label class="col-sm-2 form-control-label">Comisión:</label>
-                <div class="col-sm-4">{{ form.comision }}</div>
-              </div>
-              <div class="form-group  row">
-                <label class="col-sm-2 form-control-label">Acta de Nacimiento:</label>
-                <div class="col-sm-4">
-                    <label class="c-input c-checkbox">
-                        {{ form.acta_de_nacimiento }}
-                        <span class="c-indicator"></span>
-                    </label>
-
-                </div>
+                <div class="col-sm-4">{{ form.comision }}
+                {{ form.comision.errors }}</div>
               </div>
               <div class="form-group row ">
                 <label class="col-sm-2 form-control-label">INE:</label>
-                <div class="col-sm-4">{{ form.ife }}</div>
+                <div class="col-sm-4">{{ form.ife }}
+                {{ form.ife.errors }}</div>
               </div>
               <div class="form-group row ">
                 <label class="col-sm-2 form-control-label">Correo electrónico:</label>
-                <div class="col-sm-4">{{ form.email }}</div>
+                <div class="col-sm-4">{{ form.email }}
+                {{ form.email.errors }}</div>
+              </div>
+              <div class="form-group row ">
+                <label class="col-sm-2 form-control-label">Numero de Cuenta:</label>
+                <div class="col-sm-4">{{ form.numero_de_cuenta }}
+                {{ form.numero_de_cuenta.errors }}</div>
+              </div>
+              <div class="form-group row ">
+                <label class="col-sm-2 form-control-label">Banco:</label>
+                <div class="col-sm-4">{{ form.banco }}
+                {{ form.banco.errors }}</div>
               </div>
             <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-4">
@@ -77,5 +77,7 @@
             </div>
         </form>
     </div>
+
+
 
 {% endblock %}
