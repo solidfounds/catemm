@@ -9,6 +9,7 @@ gen### SublimeText template
 # cache files for sublime text
 *.tmlanguage.cache
 *.tmPreferences.cache
+/..gitignore.swp
 *.stTheme.cache
 
 # workspace files are user-specific
@@ -30,7 +31,7 @@ sftp-config.json
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
-# .idea/workspace.xml
+.idea/workspace.xml
 # .idea/tasks.xml
 # .idea/dictionaries
 

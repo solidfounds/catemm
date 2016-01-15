@@ -11,11 +11,31 @@
 		.green{
 
 		}
-	</style>		
+        .text-red {
+          color: red;
+        }
+
+        .text-blue {
+          color: blue;
+        }
+        .False {
+            color: red;
+            background-color: red;
+        }
+
+        .True {
+            color: blue;
+            background-color: blue;
+        }
+	</style>
+
 {% endblock css_add %}
 
 {% block contenido %}
-<div class="row">
+
+
+
+    <div class="row" ng-app="Myapp">
 		<table class="table table-bordered">
 		    <thead>
 		      <tr>
@@ -23,7 +43,6 @@
 		        <th >IFE</th>
 		        <th>Caratula</th>
 		        <th>Tarjeta Mejoravit</th>
-		        <th>Estatus</th>
 		        <th>ODC 1</th>
 		        <th>ODC 2</th>
 		        <th>ODC 3</th>
@@ -34,28 +53,48 @@
 		        <th>Efectivo</th>
 		      </tr>
 		    </thead>
-		    <tbody>
-		      <tr>
-		        <td>Daniel Arzate Colin</td>
-		        <td class="red">IFE</td>
-		        <td>BDF1234</td>
-		        <td>7S8D97D9S8</td>
-		        <td>17345.00</td>
-		        <td>24932.00</td>
-		        <td>Activo</td>
-		        <td>12/09/07</td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		      </tr>
+		    <tbody ng-controller="Test">
+                <tr>
+                    {% for foo in cliente %}
+                        <td>{{ foo.id }}{{ foo.nombre }}{{ foo.apellidos }}</td>
+                        <td  class="red">{{ foo.ife.url }}</td>
+                        {% for faa in tarjeta %}
+                            {% if faa.cliente.id == foo.id %}
+                                <td> {{ faa.caratula }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ faa.numero_tarjeta }}
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                        <button class="dropdown-item {{ faa.targeta_entregada  }}" type="button"><i class="fa fa-check"></i></button>
+                                        <button class="dropdown-item {{ faa.targeta_activa }}" type="button">Activa  <i class="fa fa-check"></i></button>
+                                        <button class="dropdown-item {{ faa.targeta_con_fondos}}" type="button">Con fondos  <i class="fa fa-times"></i> </button>
+                                      </div>
+                                    </div>
+                                </td>
+                            {% endif %}
+{#                            {{ faa.cliente.id }}#}
+{#                            {{ foo.id }}#}
+
+                        {% endfor %}
+
+
+		                <td>24932.00</td>
+		                <td>Activo</td>
+		                <td>12/09/07</td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+                    {% endfor %}
+                </tr>
 		      <tr>
 		        <td>Daniel Arzate Colin</td>
 		        <td>IFE</td>
 		        <td>BDF1234</td>
 		        <td class="red">7S8D97D9S8</td>
-		        <td>17345.00</td>
 		        <td>24932.00</td>
 		        <td>Activo</td>
 		        <td>12/09/07</td>
@@ -70,7 +109,6 @@
 		        <td class="yellow">IFE</td>
 		        <td>BDF1234</td>
 		        <td>7S8D97D9S8</td>
-		        <td>17345.00</td>
 		        <td>24932.00</td>
 		        <td>parado</td>
 		        <td>12/09/07</td>
@@ -83,7 +121,7 @@
 		      	<td>Daniel Arzate Colin</td>
 		        <td class="yellow">IFE</td>
 		        <td>BDF1234</td>
-		        <td>7S8D97D9S8</td>
+
 		        <td>17345.00</td>
 		        <td>24932.00</td>
 		        <td>Activo</td>
@@ -107,7 +145,6 @@
 		        <td></td>
 		        <td></td>
 		        <td></td>
-		        <td></td>
 		      </tr>
 		      <tr>
 		        <td>Daniel Arzate Colin</td>
@@ -122,10 +159,26 @@
 		        <td></td>
 		        <td></td>
 		        <td></td>
-		        <td></td>
 		      </tr>
 		    </tbody>
 		 </table>
 </div>
 
 {% endblock contenido %}
+
+{% block javascript %}
+    <script>
+    var app = angular.module('Myapp', [])
+        .config(
+            function($interpolateProvider) {
+                $interpolateProvider.startSymbol('{$');
+                $interpolateProvider.endSymbol('$}');
+            }
+        );
+    app.controller('Test', function($scope) {
+      $scope.ngClassTest = 'test';
+      $scope.test = 'new-class';
+    });
+
+    </script>
+{% endblock %}

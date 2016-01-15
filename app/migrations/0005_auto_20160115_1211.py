@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0002_auto_20160114_1045'),
+        ('app', '0004_auto_20160115_1209'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='sucursal',
-            field=models.ForeignKey(to='users.Sucursal', blank=True, null=True),
+            model_name='segundoregistro',
+            name='credito',
+            field=models.DecimalField(decimal_places=2, null=True, blank=True, max_digits=7),
         ),
     ]

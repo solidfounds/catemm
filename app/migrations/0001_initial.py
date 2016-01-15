@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PrimerRegistro',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=55)),
                 ('apellidos', models.CharField(max_length=80)),
                 ('direccion', models.TextField()),
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('telefono', models.SmallIntegerField()),
                 ('empresa', models.CharField(max_length=254)),
                 ('registro_patronal', models.CharField(max_length=15)),
-                ('comision', models.DecimalField(max_digits=7, decimal_places=2)),
+                ('comision', models.DecimalField(decimal_places=2, max_digits=7)),
                 ('ife', models.FileField(upload_to='media/ifes')),
                 ('email', models.EmailField(max_length=254)),
                 ('numero_de_cuenta', models.CharField(max_length=16)),
@@ -34,10 +34,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SegundoRegistro',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('fecha', models.DateField(auto_now_add=True)),
                 ('caratula', models.CharField(max_length=50)),
                 ('tarjeda_de_mejoravit', models.FileField(upload_to='media/targeta_infonavit')),
+                ('targeta_entregada', models.BooleanField()),
+                ('targeta_activa', models.BooleanField()),
+                ('targeta_con_fondos', models.BooleanField()),
+                ('credito', models.DecimalField(decimal_places=2, max_digits=7)),
                 ('cliente', models.ForeignKey(to='app.PrimerRegistro')),
             ],
             options={
@@ -45,30 +49,13 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Sucursales',
-            fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-                ('nombre', models.CharField(max_length=50)),
-                ('direccion', models.CharField(max_length=50)),
-                ('estado', models.CharField(max_length=50)),
-                ('telefono', models.SmallIntegerField()),
-                ('renta', models.DecimalField(max_digits=7, decimal_places=2)),
-                ('luz', models.DecimalField(max_digits=7, decimal_places=2)),
-                ('agua', models.DecimalField(max_digits=7, decimal_places=2)),
-                ('varios', models.DecimalField(max_digits=7, decimal_places=2)),
-            ],
-            options={
-                'verbose_name_plural': 'Sucursales',
-            },
-        ),
-        migrations.CreateModel(
             name='TercerRegistro',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('compra', models.TextField()),
-                ('importe_total', models.DecimalField(max_digits=10, decimal_places=2)),
-                ('efectivo', models.DecimalField(max_digits=10, decimal_places=2)),
-                ('comision', models.DecimalField(max_digits=10, decimal_places=2)),
+                ('importe_total', models.DecimalField(decimal_places=2, max_digits=10)),
+                ('efectivo', models.DecimalField(decimal_places=2, max_digits=10)),
+                ('comision', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('fecha', models.DateField(auto_now_add=True)),
                 ('numero_credito', models.CharField(max_length=10)),
                 ('cliente', models.ForeignKey(to='app.PrimerRegistro')),

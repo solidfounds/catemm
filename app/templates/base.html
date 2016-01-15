@@ -9,8 +9,6 @@
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" >
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"  crossorigin="anonymous"></script>
 
 
 	<!-- Latest compiled and minified JavaScript -->
@@ -75,7 +73,6 @@
               {{ request.user}}
                {{ request.sucursal.nombre }}
             </div>
-
             <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesion</a>
         </div>
         </li>
@@ -94,12 +91,27 @@
 
 
 
-   <footer class="footer">
-      <div class="container">
-          <button type="button" class="btn btn-primary"><i class="fa fa-facebook"></i></button>
-      </div>
-    </footer>
+{#   <footer class="footer">#}
+{#      <div class="container">#}
+{#          <button type="button" class="btn btn-primary"><i class="fa fa-facebook"></i></button>#}
+{#      </div>#}
+{#    </footer>#}
 
+
+     <script src="http://v4-alpha.getbootstrap.com/assets/js/vendor/tether.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    });
+    </script>
+    {% block javascript %}
+    
+    {% endblock %}
 
 </body>
 </html>
