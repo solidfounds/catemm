@@ -43,6 +43,7 @@
 		        <th >IFE</th>
 		        <th>Caratula</th>
 		        <th>Tarjeta Mejoravit</th>
+                 <th>Credito Mejoravit</th>
 		        <th>ODC 1</th>
 		        <th>ODC 2</th>
 		        <th>ODC 3</th>
@@ -73,6 +74,46 @@
                                       </div>
                                     </div>
                                 </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">{{ faa.credito }}</button>
+                                    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                              <table>
+                                                <thead>
+                                                  <tr>
+                                                    <th>Concepto</th>
+                                                    <th>Monto</th>
+                                                    <th>%</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>Monto del Credito</td>
+                                                    <td>{{ faa.credito }}</td>
+                                                    <td>100%</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Mano de Obra</td>
+                                                    <td>Moe</td>
+                                                    <td>-20%</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Compra Material</td>
+                                                    <td>Dooley</td>
+                                                    <td>80%</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Impuestos</td>
+                                                    <td>Dooley</td>
+                                                    <td>-16%</td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </td>
                             {% endif %}
 {#                            {{ faa.cliente.id }}#}
 {#                            {{ foo.id }}#}
@@ -80,7 +121,7 @@
                         {% endfor %}
 
 
-		                <td>24932.00</td>
+
 		                <td>Activo</td>
 		                <td>12/09/07</td>
 		                <td></td>
