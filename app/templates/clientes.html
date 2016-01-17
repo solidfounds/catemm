@@ -35,7 +35,7 @@
 
 
 
-    <div class="row" ng-app="Myapp">
+    <div class="row" ng-app="Clientes">
 		<table class="table table-bordered">
 		    <thead>
 		      <tr>
@@ -54,7 +54,7 @@
 		        <th>Efectivo</th>
 		      </tr>
 		    </thead>
-		    <tbody ng-controller="Test">
+		    <tbody >
                 <tr>
                     {% for foo in cliente %}
                         <td>{{ foo.id }}{{ foo.nombre }}{{ foo.apellidos }}</td>
@@ -74,8 +74,8 @@
                                       </div>
                                     </div>
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">{{ faa.credito }}</button>
+                                <td ng-controller="CalculatorController">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm" ng-model="montoInicial" ng-init="montoInicial={{ faa.credito}}" ng-click="calculate()">{{ faa.credito }}</button>
                                     <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                       <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
@@ -95,18 +95,38 @@
                                                   </tr>
                                                   <tr>
                                                     <td>Mano de Obra</td>
-                                                    <td>Moe</td>
+                                                    <td>-{$ manoObra $}</td>
                                                     <td>-20%</td>
                                                   </tr>
                                                   <tr>
+                                                    <td>Estado</td>
+                                                    <td>{$ monto1 $}</td>
+                                                    <td></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Comisión</td>
+                                                    <td>-{$ comisionA $}</td>
+                                                    <td>-4%</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Estado</td>
+                                                    <td>{$ monto2 $}</td>
+                                                    <td></td>
+                                                  </tr>
+                                                  <tr>
                                                     <td>Compra Material</td>
-                                                    <td>Dooley</td>
-                                                    <td>80%</td>
+                                                    <td>{$ monto2 $}</td>
+                                                    <td></td>
                                                   </tr>
                                                   <tr>
                                                     <td>Impuestos</td>
-                                                    <td>Dooley</td>
+                                                    <td>{$ iva $}</td>
                                                     <td>-16%</td>
+                                                  </tr>
+                                                   <tr>
+                                                    <td>Total</td>
+                                                    <td>{$ total $}</td>
+                                                    <td></td>
                                                   </tr>
                                                 </tbody>
                                               </table>
@@ -119,9 +139,6 @@
 {#                            {{ foo.id }}#}
 
                         {% endfor %}
-
-
-
 		                <td>Activo</td>
 		                <td>12/09/07</td>
 		                <td></td>
@@ -145,62 +162,6 @@
 		        <td></td>
 		        <td></td>
 		      </tr>
-		      <tr>
-		        <td>Daniel Arzate Colin</td>
-		        <td class="yellow">IFE</td>
-		        <td>BDF1234</td>
-		        <td>7S8D97D9S8</td>
-		        <td>24932.00</td>
-		        <td>parado</td>
-		        <td>12/09/07</td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		      </tr>
-		      	<td>Daniel Arzate Colin</td>
-		        <td class="yellow">IFE</td>
-		        <td>BDF1234</td>
-
-		        <td>17345.00</td>
-		        <td>24932.00</td>
-		        <td>Activo</td>
-		        <td>12/09/07</td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>		        
-		      </tr>
-		      <tr>
-		        <td>Daniel Arzate Colin</td>
-		        <td class="red">IFE</td>
-		        <td>BDF1234</td>
-		        <td>7S8D97D9S8</td>	
-		        <td>17345.00</td>
-		        <td>24932.00</td>
-		        <td>Activo</td>
-		        <td>12/09/07</td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		      </tr>
-		      <tr>
-		        <td>Daniel Arzate Colin</td>
-		        <td>IFE</td>
-		        <td>BDF1234</td>
-		        <td>7S8D97D9S8</td>
-		        <td>17345.00</td>
-		        <td>24932.00</td>
-		        <td>parado</td>
-		        <td>12/09/07</td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		        <td></td>
-		      </tr>
 		    </tbody>
 		 </table>
 </div>
@@ -209,17 +170,27 @@
 
 {% block javascript %}
     <script>
-    var app = angular.module('Myapp', [])
-        .config(
-            function($interpolateProvider) {
-                $interpolateProvider.startSymbol('{$');
-                $interpolateProvider.endSymbol('$}');
-            }
-        );
-    app.controller('Test', function($scope) {
-      $scope.ngClassTest = 'test';
-      $scope.test = 'new-class';
-    });
+     	var app = angular.module('Clientes', [])
+     		app.config(function($interpolateProvider) {
+	        		$interpolateProvider.startSymbol('{$');
+	    		    $interpolateProvider.endSymbol('$}');
+	        });
+     	   	app.controller('CalculatorController',['$scope', function($scope){
+				$scope.calculate = function(){
+					 $scope.manoObra = (parseInt($scope.montoInicial) * 20 /100);
+					 //cobtenemos el  20%
+					 $scope.monto1 = ($scope.montoInicial)-(parseInt($scope.montoInicial) * 20 /100);
+					 $scope.comisionA = $scope.monto1 * 4 /100;
+					 //obtenemos el 4%
+					 $scope.monto2 = $scope.monto1 - $scope.comisionA;
+					 $scope.iva = $scope.monto2 * 16 / 100;
+					 //obtenemos el iva
+					 $scope.total  = $scope.monto2 - $scope.iva;
+				}
+			}]);
+
+
+
 
     </script>
 {% endblock %}
