@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  PrimerRegistro,SegundoRegistro, TercerRegistro
+from .models import  PrimerRegistro,SegundoRegistro, TercerRegistro, Productos
 from users.models import Sucursal
 # Register your models here.
 """
@@ -18,6 +18,10 @@ class AuthorAdmin(admin.ModelAdmin):
 #     #list_filter = ('sucursal__nombre','porcentaje_ganancia')
 #     pass
 
+
+@admin.register(Productos)
+class ProductosAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(PrimerRegistro)
 class PrimerRegistroAdmin(admin.ModelAdmin):

@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from .forms import PrimerRegistroFORM
 from django.http import HttpResponseRedirect
-from .models import PrimerRegistro, SegundoRegistro
+from .models import PrimerRegistro, SegundoRegistro, Productos
+from  django.core import serializers
 
 
 # Create your views here.
@@ -39,3 +40,7 @@ def primerRegistro(request):
     else:
         form = PrimerRegistroFORM()
     return render(request,'index.html',{'form':form} )
+
+def orden_compra(request):
+    data = serializers.serialize("json", Productos.objects.all())
+    return render(request,'odc.html', {'data':data,} )

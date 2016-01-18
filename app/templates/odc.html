@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--le decimos a nuestra página que vamos a utilizar el módulo app que hemos creado-->
+<html >
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Carrito de compras con AngularJS</title>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <!--cdn con la version 1.2.4 de angular.js-->
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+  <!--cdn con el modulo ngRoute de angular-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" >
+  <!--cargamos el modulo cart-->
+    {% load staticfiles %}
+  <script type="text/javascript" src="{% static  'cart.js' %}"></script>
+  <!--archivo app.js, donde hemos definido nuestro modulo app-->
+  <script type='text/javascript' src="{% static 'app.js' %}"></script>
+</head>
+    <body>
+      <!--directiva ng-view, aquí cargara todo el contenido-->
+    <div ng-app="app">
+      <div ng-controller="homeController">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Tienda con AngularJS y Paypal</h3>
+              {{ data }}
+              <table class="table">
+                  <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat="productoTienda in productosTienda">
+                          <td>
+                            <h6>{$ productoTienda.name$}</h6>
+                          </td>
+                          <td>
+                              <a class="btn btn-primary" ng-click="add(productoTienda)">
+                                Precio: {$  productoTienda.price $} Euros
+                            </a>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <div class="col-md-6">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Precio unidad</th>
+                  <th>Total producto</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="prod in udpShopContent">
+                  <td>{$ prod.id$}</td>
+                  <td>{$ prod.name$}</td>
+                  <td>{$ prod.qty$}</td>
+                  <td>{$ roundCurrency(prod.price)$}</td>
+                  <td>{$ roundCurrency(prod.price * prod.qty)$}</td>
+                  <td><a class="button alert" ng-click="remove(prod.id)">Eliminar</a></td>
+                </tr>
+                <tr>
+                  <td colspan="6">Precio total del carrito: {$  roundCurrency(udpShopTotalPrice) $}</td>
+                <tr>
+                <tr>
+                  <td colspan="6">Número total de artículos: {$  udpShopTotalProducts $}</td>
+                <tr>
+                <tr>
+                  <td colspan="6">
+                    <a type="button" class="btn btn-danger" ng-disabled="udpShopContent.length < 1" class="button alert large-12" ng-click="destroy()">
+                      Reiniciar Carrito
+                    </a>
+                  </td>
+                <tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
+</html>
