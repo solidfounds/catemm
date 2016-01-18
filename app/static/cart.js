@@ -101,7 +101,7 @@ shop.factory('$shop', ['$rootScope', function ($rootScope)
 		    var i, len;
 		    for (i = 0, len = products.length; i < len; i++) 
 		    {
-		        if (products[i].id === product.id) 
+		        if (products[i].id === product.id)
 		        {	   	
 		        	products[i].qty += product.qty;  
 		            return true;

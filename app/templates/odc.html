@@ -15,12 +15,12 @@
     {% load staticfiles %}
   <script type="text/javascript" src="{% static  'cart.js' %}"></script>
   <!--archivo app.js, donde hemos definido nuestro modulo app-->
-  <script type='text/javascript' src="{% static 'app.js' %}"></script>
 </head>
     <body>
       <!--directiva ng-view, aquí cargara todo el contenido-->
     <div ng-app="app">
       <div ng-controller="homeController">
+
         <div class="row">
           <div class="col-md-6">
             <h3>Tienda con AngularJS y Paypal</h3>
@@ -48,6 +48,7 @@
           </div>
 
           <div class="col-md-6">
+              <div class="bg-success"><h2>{{ cliente.nombre }} {{ cliente.apellidos }}</h2></div>
             <table class="table">
               <thead>
                 <tr>
@@ -87,5 +88,111 @@
         </div>
       </div>
     </div>
+
+      <script>
+          //creamos el modulo y le inyectamos el modulo ngRoute y el modulo cart que hemos creado
+            var app = angular.module("app", ['ngRoute','ng-Shop']);
+            app.config(function($routeProvider, $interpolateProvider)
+            {
+                $interpolateProvider.startSymbol('{$');
+                $interpolateProvider.endSymbol('$}');
+
+                $routeProvider.when("/", {
+                    templateUrl : "home.html",
+                    controller : "homeController"
+                })
+                .otherwise({ reditrectTo : "/" });
+            });
+
+
+            app.controller("homeController", function($scope, $shop)
+            {
+                /**
+                * @desc - establecemos los datos para el formulario de paypal
+                * @return - object
+                */
+                function userDataPayPal()
+                {
+                    var userData = {};
+                    userData.cmd = "_cart";
+                    userData.upload = "1";
+                    userData.business = "correo_business_paypal";
+                    userData.currencyCode = "EUR";
+                    userData.lc = "EU";
+                    userData.rm = 2;
+                    //url retorno paypal lado server, envia data post
+                    userData.successUrl = "http://localhost/cartAngularServer/return.php";
+                    userData.cancelUrl = "http://localhost/cartAngular/#/";
+                    userData.cbt = "Volver a la tienda";
+                    userData.formClass = "#formPaypal";
+                    return userData;
+                }
+
+                /**
+                * @desc - añade x cantidad de un producto al carrito
+                * @return - object - si es nueva inserción devuelve insert, en otro caso update
+                */
+                $scope.add = function(producto)
+                {
+                    //alert(producto.total); return;
+                    var product = {};
+                    product.id = producto.id;
+                    product.price = producto.price;
+                    product.name = producto.name;
+                    product.category = producto.category;
+                    product.qty = parseInt(producto.total || 1,10);
+                    $shop.add(product);
+                }
+
+                /**
+                * @desc - elimina un producto del carrito por su id
+                */
+                $scope.remove = function(id)
+                {
+                    if($shop.remove(id))
+                    {
+                        alert("Producto eliminado correctamente");
+                        return;
+                    }
+                    else
+                    {
+                        alert("Ha ocurrido un error eliminando el producto, seguramente porqué no existe");
+                        return;
+                    }
+                }
+                $scope.destroy = function()
+                {
+                    $shop.destroy();
+                }
+
+                $scope.roundCurrency = function(total)
+                {
+                    return total.toFixed(2);
+                }
+
+                /**
+                * @desc - array de objetos con productos para el ejemplo
+                */
+                $scope.productosTienda =[
+                {% for producto in productos %}
+                    {"id": {{producto.pk}}, "name": "{{ producto.name }}", "price": {{ producto.price }}},
+                {% endfor %}
+                    ];
+{#                    {{ data|safe }};#}
+{#                {"id": 1, "name": "Campanas", "price": 0.9},#}
+{#                {"id": 2,  "name": "Carrito", "price": 1},#}
+{#                {"id": 3, "name": "Carrito con chupetes", "price": 1.6},#}
+{#                {"id": 4, "name": "Cesta", "price": 1.6},#}
+{#                {"id": 5,  "name": "Mini cesta", "price": 2},#}
+{#                {"id": 6,  "name": "Enfermera", "price": 3},#}
+{#                {"id": 7,  "name": "Gatitos", "price": 2.5},#}
+{#                {"id": 8,  "name": "Perritos", "price": 2.5},#}
+{#                {"id": 9, "name": "Profesoras", "price": 2.5},#}
+{#                {"id": 10,  "name": "Vestido", "price": 1.8},#}
+{#                {"id": 11, "name": "Otros", "price": 0.5}#}
+
+            });
+
+      </script>
     </body>
 </html>

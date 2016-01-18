@@ -29,8 +29,8 @@ urlpatterns = [
     url(r'^$', userlogin.as_view(), name='login'),
     	#url(r'^$', 'users.views.userlogin', name='login'),
 	url(r'^salir/$', 'users.views.LogOut', name='logout'),
-    url(r'^odc/', 'app.views.orden_compra', name='odc'),
-
+    url(r'^odc/(?P<cliente_id>\d+)/', 'app.views.orden_compra', name='odc1'),
+    # url(r'^detail/(?P<object_id>\d+)/$', 'products.views.detail_view', name='detail_view'),
 ]
 
 

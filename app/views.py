@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import PrimerRegistroFORM
 from django.http import HttpResponseRedirect
 from .models import PrimerRegistro, SegundoRegistro, Productos
 from  django.core import serializers
+import json
+from decimal import Decimal
 
 
 # Create your views here.
@@ -41,6 +43,14 @@ def primerRegistro(request):
         form = PrimerRegistroFORM()
     return render(request,'index.html',{'form':form} )
 
-def orden_compra(request):
-    data = serializers.serialize("json", Productos.objects.all())
-    return render(request,'odc.html', {'data':data,} )
+def orden_compra(request, cliente_id=None):
+    #data = serializers.serialize("json", Productos.objects.all(), fields=('pk', 'name', 'price'))
+    cliente =get_object_or_404(PrimerRegistro, id=cliente_id)
+    productos = Productos.objects.all()
+    #lista = [{'pk':producto.pk, 'name':producto.nombre, 'price': Decimal(producto.precio), } for producto in productos]
+    #serializado = json.dumps(lista)
+    return render(request,'odc.html', { 'productos':productos,
+                                        'cliente':cliente,
+                                        #'data':data,
+                                       #'lista':serializado,
+                                       } )

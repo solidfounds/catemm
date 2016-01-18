@@ -137,9 +137,8 @@
                             {% endif %}
 {#                            {{ faa.cliente.id }}#}
 {#                            {{ foo.id }}#}
-
                         {% endfor %}
-		                <td>Activo</td>
+		                <td> <a href="{% url 'odc1' cliente_id=foo.id %}">Generar</a></td>
 		                <td>12/09/07</td>
 		                <td></td>
 		                <td></td>

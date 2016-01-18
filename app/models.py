@@ -65,9 +65,24 @@ class TercerRegistro(models.Model):
 
 
 class Productos (models.Model):
-    nombre = models.CharField(max_length=100)
-    precio = models.DecimalField(decimal_places=2, max_digits=10)
-
+    name = models.CharField(max_length=100)
+    price = models.SmallIntegerField()
 
     def __str__(self):
-        return self.nombre
+        return self.name
+
+class Venta(models.Model):
+    cliente = models.ForeignKey(PrimerRegistro)
+    detalle_venta = models.ManyToManyField(Productos)
+    fecha = models.DateTimeField(auto_now_add=True)
+    total = models.DecimalField(blank=True,decimal_places=2,default=0,editable=True,max_digits=9,null=True,verbose_name='Total')
+    def __str__(self):
+        return self.cliente.nombre
+
+class DetalleVenta_(models.Model):
+    producto = models.ForeignKey(Productos)
+    venta = models.ForeignKey(Venta)
+    # precio_venta = models.DecimalField(blank=True,decimal_places=2,default=0,editable=True,max_digits=9,null=True,verbose_name='Precio Venta')
+    cantidad = models.PositiveSmallIntegerField(blank=True,default=0,null=True)
+    def __str__(self):
+        return "%s = %s" % (self.producto.nombre, self.producto.precio)

@@ -74,29 +74,14 @@ app.controller("homeController", function($scope, $shop)
 			return;
 		}
 	}
-
-	/**
-	* @desc - elimina el contenido del carrito
-	*/
 	$scope.destroy = function()
 	{
 		$shop.destroy();
 	}
 
-	/**
-	* @desc - redondea el precio que le pasemos con dos decimales
-	*/
 	$scope.roundCurrency = function(total)
 	{
 		return total.toFixed(2);
-	}
-
-	/**
-	* @desc - formulario de paypal preparado para printar
-	*/
-	$scope.paypalData = function()
-	{
-		$shop.dataPayPal(userDataPayPal());
 	}
 
 	/**
