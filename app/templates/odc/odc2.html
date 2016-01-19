@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block css_add %}
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Carrito de compras con AngularJS</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!--cdn con la version 1.2.4 de angular.js-->
+    <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+    <!--cdn con el modulo ngRoute de angular-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" >
+  <!--cargamos el modulo cart-->
+    {% load staticfiles %}
+  <script type="text/javascript" src="{% static  'cart.js' %}"></script>
+{% endblock %}
+{% block contenido %}
+    <div ng-app="app">
+      <div ng-controller="homeController">
+
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Orden de compra 2</h3>
+              {{ data }}
+              <table class="table">
+                  <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat="productoTienda in productosTienda">
+                          <td>
+                            <h6>{$ productoTienda.name$}</h6>
+                          </td>
+                          <td>
+                              <a class="btn btn-primary" ng-click="add(productoTienda)">
+                                Precio: {$  productoTienda.price $} Euros
+                            </a>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <div class="col-md-6">
+              <div class="bg-success"><h2>{{ cliente.nombre }} {{ cliente.apellidos }}</h2></div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Precio unidad</th>
+                  <th>Total producto</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="prod in udpShopContent">
+                  <td>{$ prod.id$}</td>
+                  <td>{$ prod.name$}</td>
+                  <td>{$ prod.qty$}</td>
+                  <td>{$ roundCurrency(prod.price)$}</td>
+                  <td>{$ roundCurrency(prod.price * prod.qty)$}</td>
+                  <td><a class="button alert" ng-click="remove(prod.id)">Eliminar</a></td>
+                </tr>
+                <tr>
+                  <td colspan="6">Precio total del carrito: {$  roundCurrency(udpShopTotalPrice) $}</td>
+                <tr>
+                <tr>
+                  <td colspan="6">Número total de artículos: {$  udpShopTotalProducts $}</td>
+                <tr>
+                <tr>
+                  <td colspan="6">
+                    <a type="button" class="btn btn-danger" ng-disabled="udpShopContent.length < 1" class="button alert large-12" ng-click="destroy()">
+                      Reiniciar Carrito
+                    </a>
+                  </td>
+                <tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <script>
+          //creamos el modulo y le inyectamos el modulo ngRoute y el modulo cart que hemos creado
+            var app = angular.module("app", ['ngRoute','ng-Shop']);
+            app.config(function($routeProvider, $interpolateProvider)
+            {
+                $interpolateProvider.startSymbol('{$');
+                $interpolateProvider.endSymbol('$}');
+
+                $routeProvider.when("/", {
+                    templateUrl : "home.html",
+                    controller : "homeController"
+                })
+                .otherwise({ reditrectTo : "/" });
+            });
+
+
+            app.controller("homeController", function($scope, $shop)
+            {
+                /**
+                * @desc - establecemos los datos para el formulario de paypal
+                * @return - object
+                */
+                function userDataPayPal()
+                {
+                    var userData = {};
+                    userData.cmd = "_cart";
+                    userData.upload = "1";
+                    userData.business = "correo_business_paypal";
+                    userData.currencyCode = "EUR";
+                    userData.lc = "EU";
+                    userData.rm = 2;
+                    //url retorno paypal lado server, envia data post
+                    userData.successUrl = "http://localhost/cartAngularServer/return.php";
+                    userData.cancelUrl = "http://localhost/cartAngular/#/";
+                    userData.cbt = "Volver a la tienda";
+                    userData.formClass = "#formPaypal";
+                    return userData;
+                }
+
+                /**
+                * @desc - añade x cantidad de un producto al carrito
+                * @return - object - si es nueva inserción devuelve insert, en otro caso update
+                */
+                $scope.add = function(producto)
+                {
+                    //alert(producto.total); return;
+                    var product = {};
+                    product.id = producto.id;
+                    product.price = producto.price;
+                    product.name = producto.name;
+                    product.category = producto.category;
+                    product.qty = parseInt(producto.total || 1,10);
+                    $shop.add(product);
+                }
+
+                /**
+                * @desc - elimina un producto del carrito por su id
+                */
+                $scope.remove = function(id)
+                {
+                    if($shop.remove(id))
+                    {
+                        alert("Producto eliminado correctamente");
+                        return;
+                    }
+                    else
+                    {
+                        alert("Ha ocurrido un error eliminando el producto, seguramente porqué no existe");
+                        return;
+                    }
+                }
+                $scope.destroy = function()
+                {
+                    $shop.destroy();
+                }
+
+                $scope.roundCurrency = function(total)
+                {
+                    return total.toFixed(2);
+                }
+
+                /**
+                * @desc - array de objetos con productos para el ejemplo
+                */
+                $scope.productosTienda =[
+                {% for producto in productos %}
+                    {"id": {{producto.pk}}, "name": "{{ producto.name }}", "price": {{ producto.price }}},
+                {% endfor %}
+                    ];
+{#                    {{ data|safe }};#}
+{#                {"id": 1, "name": "Campanas", "price": 0.9},#}
+{#                {"id": 2,  "name": "Carrito", "price": 1},#}
+{#                {"id": 3, "name": "Carrito con chupetes", "price": 1.6},#}
+{#                {"id": 4, "name": "Cesta", "price": 1.6},#}
+{#                {"id": 5,  "name": "Mini cesta", "price": 2},#}
+{#                {"id": 6,  "name": "Enfermera", "price": 3},#}
+{#                {"id": 7,  "name": "Gatitos", "price": 2.5},#}
+{#                {"id": 8,  "name": "Perritos", "price": 2.5},#}
+{#                {"id": 9, "name": "Profesoras", "price": 2.5},#}
+{#                {"id": 10,  "name": "Vestido", "price": 1.8},#}
+{#                {"id": 11, "name": "Otros", "price": 0.5}#}
+
+            });
+
+      </script>
+
+{% endblock %}
+

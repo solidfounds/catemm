@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
  {% block css_add %}
+     <style>
+
+     </style>
  {% endblock %}
 
 {% block contenido %}
+    <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar Cliente</button>
 
-    <div class="card-inverse">
-        <form  method="post" enctype="multipart/form-data">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="container">
+            <div class="text-danger mr"><h4 class="ma">Agrega un nuevo cliente.</h4></div>
+            <form  method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
               <div class="form-group  row ">
@@ -76,8 +84,52 @@
                 </div>
             </div>
         </form>
+        </div>
     </div>
+  </div>
+</div>
 
+
+<div>
+ <table class="table ar">
+     <thead class="color1">
+     <tr>
+         <th>id</th>
+         <th>Nombre</th>
+         <th>Apellidos</th>
+         <th>Dirección</th>
+         <th>Nsn</th>
+         <th>Telefono</th>
+         <th>Empresa</th>
+         <th>Registro Patronal</th>
+         <th>Comisión</th>
+         <th>Correo Electrónico</th>
+         <th>Banco</th>
+         <th>Numero de Cuenta</th>
+     </tr>
+     </thead>
+     <tbody>
+     {% for mi_cliente in mis_clientes %}
+         <tr>
+             <td>{{ mi_cliente.pk }}</td>
+             <td>{{ mi_cliente.nombre }}</td>
+             <td>{{ mi_cliente.apellidos }}</td>
+             <td>{{ mi_cliente.direccion }}</td>
+             <td>{{ mi_cliente.nsn }}</td>
+             <td>{{ mi_cliente.telefono }}</td>
+             <td>{{ mi_cliente.empresa }}</td>
+                 <td>{{ mi_cliente.registro_patronal}}</td>
+             <td>{{ mi_cliente.comision }}</td>
+             <td>{{ mi_cliente.email }}</td>
+             <td>{{ mi_cliente.banco }}</td>
+            <td>{{ mi_cliente.numero_de_cuenta }}</td>
+     </tr>
+     {% endfor %}
+
+
+     </tbody>
+ </table>
+</div>
 
 
 {% endblock %}

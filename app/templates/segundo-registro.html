@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block css_add %}
+    <style>
+    .True{
+        color: darkgreen;
+    }
+    .False{
+        color: #e74c3c;
+    }
+    </style>
+{% endblock %}
+{% block contenido %}
+    <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar Cliente</button>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="container">
+            <div class="text-danger mr"><h4 class="ma">Agrega un nuevo cliente.</h4></div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Enviar</button>
+                </form>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <div>
+ <table class="table ar">
+     <thead class="color1">
+     <tr>
+         <th>Cliente</th>
+         <th>Caratula</th>
+         <th>Num. Tarjeta Mejoravit</th>
+         <th>Tarjeta Entregada</th>
+         <th>Tarjeta Activa</th>
+         <th>Tarjeta con Fondos</th>
+         <th>Credito</th>
+         <th>Modificar</th>
+     </tr>
+     </thead>
+     <tbody>
+     {% for mi_cliente in mis_clientes %}
+         <tr>
+             <td>{{ mi_cliente.cliente }}</td>
+             <td>{{ mi_cliente.caratula }}</td>
+             <td>{{ mi_cliente.numero_tarjeta }}</td>
+             <td class="{{ mi_cliente.tarjeta_entregada }}">{{ mi_cliente.tarjeta_entregada }}</td>
+             <td class="{{ mi_cliente.tarjeta_activa }}">{{ mi_cliente.tarjeta_activa }}</td>
+             <td class="{{ mi_cliente.tarjeta_con_fondos }}">{{ mi_cliente.tarjeta_con_fondos }}</td>
+             <td>{{ mi_cliente.credito }}</td>
+            <td><button type="button" class="btn btn-warning-outline">Modificar</button></td>
+     </tr>
+     {% endfor %}
+
+
+     </tbody>
+
+{% endblock %}

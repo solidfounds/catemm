@@ -10,7 +10,6 @@
 	.numero{
 		text-align: center;
 		color: #fff;
-
 		margin-left: 10px;
 		margin-right: 10px;
 	}
@@ -20,24 +19,25 @@
 	.panel{
 		background-color: #e74c3c;
 		color: #fff;
+        text-align: left;
 	}
 	</style>
 		
 	{% endblock css_add %}
 
 {% block contenido %}
-			<div class="container">
+    <div class="container">
 	            <div class="row">
                     <div class="col-lg-3 col-md-6">
-                        <div class="panel ">
+                        <div class="panel">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
+                                        <div class="fa fa-comments fa-5x"></div>
                                     </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
-                                        <div>Total de clienegistraste!</div>
+                                    <div class="col-xs-9 col-sm-9 text-right">
+                                        <div class="huge" align="center">{{ total_clientes }}</div>
+                                        <hr><div>Total de clientes registrados!</div><br>
                                     </div>
                                 </div>
                             </div>
@@ -58,8 +58,8 @@
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">4%</div>
-                                        <div>Porcentaje de Comisión!</div>
+                                        <div class="huge" align="center">%{{mi_info.porcentaje_ganancia }}</div>
+                                        <hr><div>Porcentaje de Comisión!</div><br>
                                     </div>
                                 </div>
                             </div>
@@ -80,8 +80,8 @@
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">$4250.00</div>
-                                        <div>Promedio de Percepción Semanal!</div>
+                                        <div class="huge" align="center">$4250.00</div>
+                                        <hr><div>Promedio de Percepción Semanal!</div>
                                     </div>
                                 </div>
                             </div>
@@ -102,8 +102,8 @@
                                        <i class="fa fa-users fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
+                                        <div class="huge" align="center">13</div>
+                                        <hr><div>Support Tickets!</div><br>
                                     </div>
                                 </div>
                             </div>
@@ -116,6 +116,8 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <hr>
                 </div>
                     <div class="col-lg-4">
                         <div class=" panel-default">
@@ -182,6 +184,6 @@
                             </div>
                         </div>
                     </div>
-            </div>
+
                 <!-- /.row -->
 {% endblock contenido %}

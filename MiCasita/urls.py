@@ -29,7 +29,10 @@ urlpatterns = [
     url(r'^$', userlogin.as_view(), name='login'),
     	#url(r'^$', 'users.views.userlogin', name='login'),
 	url(r'^salir/$', 'users.views.LogOut', name='logout'),
-    url(r'^odc/(?P<cliente_id>\d+)/', 'app.views.orden_compra', name='odc1'),
+    url(r'^odc1/(?P<cliente_id>\d+)/', 'app.views.orden_compra1', name='odc1'),
+    url(r'^odc2/(?P<cliente_id>\d+)/', 'app.views.orden_compra2', name='odc2'),
+    url(r'^odc3/(?P<cliente_id>\d+)/', 'app.views.orden_compra3', name='odc3'),
+    url(r'^segundo_registro/$', 'app.views.segundoRegistro', name='segundo_registro'),
     # url(r'^detail/(?P<object_id>\d+)/$', 'products.views.detail_view', name='detail_view'),
 ]
 

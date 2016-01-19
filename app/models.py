@@ -18,7 +18,7 @@ class PrimerRegistro(models.Model):
     email = models.EmailField()
     numero_de_cuenta = models.CharField(max_length=16)
     banco = models.CharField(max_length=15)
-    operador = models.OneToOneField('users.User')
+    operador = models.ManyToManyField('users.User')
     
     class Meta:
         verbose_name_plural = 'Primer Registro'
@@ -33,11 +33,11 @@ class SegundoRegistro(models.Model):
     caratula =  models.CharField(max_length=50)
     tarjeta_de_mejoravit = models.FileField(upload_to='media/targeta_infonavit')
     numero_tarjeta = models.SmallIntegerField()
-    targeta_entregada = models.BooleanField()
-    targeta_activa = models.BooleanField()
-    targeta_con_fondos = models.BooleanField()
+    tarjeta_entregada = models.BooleanField()
+    tarjeta_activa = models.BooleanField()
+    tarjeta_con_fondos = models.BooleanField()
     credito = models.DecimalField(max_digits=7,decimal_places=2, blank=True, null=True )
-    operador = models.OneToOneField('users.User')
+    operador = models.ForeignKey('users.User')
 
 
 

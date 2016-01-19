@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<!--le decimos a nuestra página que vamos a utilizar el módulo app que hemos creado-->
-<html >
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Carrito de compras con AngularJS</title>
-  <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <!--cdn con la version 1.2.4 de angular.js-->
-  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
-  <!--cdn con el modulo ngRoute de angular-->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+{% extends 'base.html' %}
+
+{% block css_add %}
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Carrito de compras con AngularJS</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!--cdn con la version 1.2.4 de angular.js-->
+    <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+    <!--cdn con el modulo ngRoute de angular-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" >
   <!--cargamos el modulo cart-->
     {% load staticfiles %}
   <script type="text/javascript" src="{% static  'cart.js' %}"></script>
-  <!--archivo app.js, donde hemos definido nuestro modulo app-->
-</head>
-    <body>
-      <!--directiva ng-view, aquí cargara todo el contenido-->
+{% endblock %}
+{% block contenido %}
     <div ng-app="app">
       <div ng-controller="homeController">
 
         <div class="row">
           <div class="col-md-6">
-            <h3>Tienda con AngularJS y Paypal</h3>
+            <h3>Orden de compra 1</h3>
               {{ data }}
               <table class="table">
                   <thead>
@@ -194,5 +191,6 @@
             });
 
       </script>
-    </body>
-</html>
+
+{% endblock %}
+

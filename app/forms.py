@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from .models import PrimerRegistro
+from .models import PrimerRegistro, SegundoRegistro
 from django import forms
 from django.forms import ModelForm
 
@@ -23,6 +23,11 @@ class PrimerRegistroFORM(ModelForm):
             'banco': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
 
         }
+
+class SegundoRegistroForm(ModelForm):
+    class Meta:
+        model = SegundoRegistro
+        fields = ('cliente', 'caratula', 'tarjeta_de_mejoravit', 'numero_tarjeta', 'tarjeta_entregada', 'tarjeta_activa', 'tarjeta_con_fondos', 'credito',)
 
 
 
