@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PrimerRegistroFORM,SegundoRegistroForm
 from django.http import HttpResponseRedirect
 from .models import PrimerRegistro, SegundoRegistro, Productos
@@ -52,6 +52,21 @@ def primerRegistro(request):
 
     mis_clientes = PrimerRegistro.objects.filter(operador__username__contains=usuario)
     return render(request,'index.html',{'form':form, 'mis_clientes':mis_clientes} )
+
+def PrimerRegistroEdit(request, pk, template_name='editar/primer_registro.html'):
+    clientes = get_object_or_404(PrimerRegistro, pk=pk)
+    form  = PrimerRegistroFORM(request.POST or None,  instance=clientes)
+    if form.is_valid():
+        form.save()
+        return redirect('agregar_clientes')
+    return render(request, template_name, {'form':form})
+
+def PrimerRegistroDelete(request, pk, template_name='delete/confirmacion.html'):
+    clientes = get_object_or_404(PrimerRegistro, pk=pk)
+    if request.method=='POST':
+        clientes.delete()
+        return redirect('agregar_clientes')
+    return render(request, template_name, {'object':clientes})
 
 
 def segundoRegistro(request):

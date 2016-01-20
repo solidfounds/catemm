@@ -1,18 +1,6 @@
 {% extends 'base.html' %}
-
- {% block css_add %}
-     <style>
-
-     </style>
- {% endblock %}
-
 {% block contenido %}
-    <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar Nuevo  Cliente</button>
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="container">
+            <div class="container">
             <div class="text-danger mr"><h4 class="ma">Agrega un nuevo cliente.</h4></div>
             <form  method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -85,63 +73,4 @@
             </div>
         </form>
         </div>
-    </div>
-  </div>
-</div>
-
-
-<div>
- <table class="table ar">
-     <thead class="color1">
-     <tr>
-         <th>id</th>
-         <th>Nombre</th>
-         <th>Apellidos</th>
-         <th>Dirección</th>
-         <th>Nsn</th>
-         <th>Telefono</th>
-         <th>Empresa</th>
-         <th>Registro Patronal</th>
-         <th>Comisión</th>
-         <th>Correo Electrónico</th>
-         <th>Banco</th>
-         <th>Numero de Cuenta</th>
-         <th>Acciones</th>
-     </tr>
-     </thead>
-     <tbody>
-     {% for mi_cliente in mis_clientes %}
-         <tr>
-             <td>{{ mi_cliente.pk }}</td>
-             <td>{{ mi_cliente.nombre }}</td>
-             <td>{{ mi_cliente.apellidos }}</td>
-             <td>{{ mi_cliente.direccion }}</td>
-             <td>{{ mi_cliente.nsn }}</td>
-             <td>{{ mi_cliente.telefono }}</td>
-             <td>{{ mi_cliente.empresa }}</td>
-                 <td>{{ mi_cliente.registro_patronal}}</td>
-             <td>{{ mi_cliente.comision }}</td>
-             <td>{{ mi_cliente.email }}</td>
-             <td>{{ mi_cliente.banco }}</td>
-            <td>{{ mi_cliente.numero_de_cuenta }}</td>
-            <td>
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Acciones
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <button type="button" class=" dropdown-item btn btn-warning-outline"><a  href="{% url 'editar_primer_registro' mi_cliente.pk %}">Ediar</a></button>
-                      <button class="dropdown-item" type="button"><a href="{% url 'eliminar_primer_registro' mi_cliente.pk %}">Eliminar</a></button>
-                  </div>
-                </div>
-            </td>
-     </tr>
-     {% endfor %}
-
-
-     </tbody>
- </table>
-</div>
-
-
 {% endblock %}

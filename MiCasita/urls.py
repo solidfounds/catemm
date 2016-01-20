@@ -22,6 +22,9 @@ from users.views import userlogin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home', 'app.views.primerRegistro', name='agregar_clientes'),
+    url(r'^editar/primer_registro/(?P<pk>\d+)', 'app.views.PrimerRegistroEdit', name='editar_primer_registro'),
+    url(r'^eliminar/(?P<pk>\d+)$', 'app.views.PrimerRegistroDelete', name='eliminar_primer_registro'),
+
     url(r'^nota_remision/', 'app.views.nota_remision', name='nota'),
     url(r'^clientes/', 'app.views.clientes', name='clientes'),
     url(r'^desempeno/', 'app.views.desempeno', name='desempeno'),

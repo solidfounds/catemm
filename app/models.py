@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 # Create your models here.
 
 
@@ -25,6 +26,8 @@ class PrimerRegistro(models.Model):
     def __str__(self):
         return self.nombre
 
+    def get_absolute_url(self):
+        return reverse('editar_primer_registro', kwargs={'pk': self.pk})
 
 
 class SegundoRegistro(models.Model):
