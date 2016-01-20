@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('password', models.CharField(verbose_name='password', max_length=128)),
-                ('last_login', models.DateTimeField(null=True, blank=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(verbose_name='superuser status', help_text='Designates that this user has all permissions without explicitly assigning them.', default=False)),
+                ('last_login', models.DateTimeField(verbose_name='last login', blank=True, null=True)),
+                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
                 ('username', models.CharField(unique=True, max_length=100)),
                 ('email', models.EmailField(max_length=254)),
                 ('first_name', models.CharField(max_length=100)),
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('banco', models.CharField(max_length=50)),
                 ('is_active', models.BooleanField(default=True)),
                 ('is_staff', models.BooleanField(default=False)),
-                ('groups', models.ManyToManyField(related_name='user_set', related_query_name='user', verbose_name='groups', help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', blank=True, to='auth.Group')),
+                ('groups', models.ManyToManyField(help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_query_name='user', related_name='user_set', to='auth.Group', blank=True, verbose_name='groups')),
             ],
             options={
                 'abstract': False,
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Sucursal',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('nombre', models.CharField(max_length=50)),
                 ('direccion', models.CharField(max_length=50)),
                 ('estado', models.CharField(max_length=50)),
@@ -55,11 +55,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='sucursal',
-            field=models.ForeignKey(null=True, to='users.Sucursal', blank=True),
+            field=models.ForeignKey(to='users.Sucursal', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='user',
             name='user_permissions',
-            field=models.ManyToManyField(related_name='user_set', related_query_name='user', verbose_name='user permissions', help_text='Specific permissions for this user.', blank=True, to='auth.Permission'),
+            field=models.ManyToManyField(help_text='Specific permissions for this user.', related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, verbose_name='user permissions'),
         ),
     ]

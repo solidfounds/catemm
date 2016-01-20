@@ -11,7 +11,19 @@
 
         }
 	</style>
-
+    {% load staticfiles %}
+    <script src="{% static 'js/datatables.min.js' %}"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
+    <script type="text/javascript">
+	// For demo to fit into DataTables site builder...
+	$('#example')
+		.removeClass( 'display' )
+		.addClass('table table-striped table-bordered');
+</script>
 {% endblock css_add %}
 
 {% block contenido %}
@@ -22,7 +34,7 @@
 
 
     <div class="row" ng-app="Clientes">
-		<table class="table table-bordered">
+		<table class="table table-bordered display" id="example">
 		    <thead>
 		      <tr>
 		        <th>Nombre:</th>
@@ -47,24 +59,25 @@
 
                             {% if faa.cliente.id == foo.id %}
                                 <td> {{ faa.caratula }}</td>
+
                                 <td>
                                     <div class="dropdown">
-                                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ faa.numero_tarjeta }}
+                                      <button class="btn btn-success" id="dLabel" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                                        {{ faa.numero_tarjeta }}<span class="caret"></span>
                                       </button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <button class="dropdown-item {{ faa.tarjeta_entregada  }}" type="button">Entregada</button>
-                                        <button class="dropdown-item {{ faa.tarjeta_activa }}" type="button">Activa</button>
-                                        <button class="dropdown-item {{ faa.tarjeta_con_fondos}}" type="button">Con fondos</button>
-                                      </div>
+                                      <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li class="dropdown-item {{ faa.tarjeta_entregada  }}" type="button">Entregada</li>
+                                        <li class="dropdown-item {{ faa.tarjeta_activa }}" type="button">Activa</li>
+                                        <li class="dropdown-item {{ faa.tarjeta_con_fondos}}" type="button">Con fondos</li>
+                                      </ul>
                                     </div>
                                 </td>
                                 <td ng-controller="CalculatorController">
                                     <button type="button" class="btn btn-primary" data-target="#{{faa.cliente.id}}" data-toggle="modal" data-target=".bd-example-modal-sm"  ng-init="montoInicial={{ faa.credito}}" ng-click="calculate()">{{ faa.credito }}</button>
-                                    <div class="modal fade bd-example-modal-sm" id="{{faa.cliente.id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal fade bs-example-modal-sm" id="{{faa.cliente.id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                       <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
-                                              <table>
+                                              <table class="table">
                                                 <thead>
                                                   <tr>
                                                     <th>Concepto</th>
@@ -134,6 +147,8 @@
 		    </tbody>
 		 </table>
 </div>
+
+
 
 {% endblock contenido %}
 

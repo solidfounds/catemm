@@ -37,6 +37,10 @@ urlpatterns = [
     url(r'^odc3/(?P<cliente_id>\d+)/', 'app.views.orden_compra3', name='odc3'),
     url(r'^segundo_registro/$', 'app.views.segundoRegistro', name='segundo_registro'),
     # url(r'^detail/(?P<object_id>\d+)/$', 'products.views.detail_view', name='detail_view'),
+
+    url(r'^editar/segundo_registro/(?P<pk>\d+)', 'app.views.SegundoRegistroEdit', name='editar_segundo_registro'),
+    url(r'^eliminar/(?P<pk>\d+)$', 'app.views.SegundoRegistroDelete', name='eliminar_segundo_registro'),
+
 ]
 
 

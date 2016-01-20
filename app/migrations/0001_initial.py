@@ -11,9 +11,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='DetalleVenta_',
+            fields=[
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('cantidad', models.PositiveSmallIntegerField(default=0, null=True, blank=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='PrimerRegistro',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('nombre', models.CharField(max_length=55)),
                 ('apellidos', models.CharField(max_length=80)),
                 ('direccion', models.TextField()),
@@ -32,16 +39,29 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='Productos',
+            fields=[
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('name', models.CharField(max_length=100)),
+                ('price', models.SmallIntegerField()),
+            ],
+            options={
+                'verbose_name_plural': 'Productos',
+                'verbose_name': 'Productos',
+            },
+        ),
+        migrations.CreateModel(
             name='SegundoRegistro',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('fecha', models.DateField(auto_now_add=True)),
                 ('caratula', models.CharField(max_length=50)),
-                ('tarjeda_de_mejoravit', models.FileField(upload_to='media/targeta_infonavit')),
-                ('targeta_entregada', models.BooleanField()),
-                ('targeta_activa', models.BooleanField()),
-                ('targeta_con_fondos', models.BooleanField()),
-                ('credito', models.DecimalField(decimal_places=2, max_digits=7)),
+                ('tarjeta_de_mejoravit', models.FileField(upload_to='media/targeta_infonavit')),
+                ('numero_tarjeta', models.SmallIntegerField()),
+                ('tarjeta_entregada', models.BooleanField()),
+                ('tarjeta_activa', models.BooleanField()),
+                ('tarjeta_con_fondos', models.BooleanField()),
+                ('credito', models.DecimalField(decimal_places=2, null=True, blank=True, max_digits=7)),
                 ('cliente', models.ForeignKey(to='app.PrimerRegistro')),
             ],
             options={
@@ -51,7 +71,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TercerRegistro',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('compra', models.TextField()),
                 ('importe_total', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('efectivo', models.DecimalField(decimal_places=2, max_digits=10)),
@@ -63,5 +83,15 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name_plural': 'Tercer Registro',
             },
+        ),
+        migrations.CreateModel(
+            name='Venta',
+            fields=[
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('fecha', models.DateTimeField(auto_now_add=True)),
+                ('total', models.DecimalField(verbose_name='Total', decimal_places=2, default=0, max_digits=9, blank=True, null=True)),
+                ('cliente', models.ForeignKey(to='app.PrimerRegistro')),
+                ('detalle_venta', models.ManyToManyField(to='app.Productos')),
+            ],
         ),
     ]

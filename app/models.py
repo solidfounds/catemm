@@ -19,7 +19,7 @@ class PrimerRegistro(models.Model):
     email = models.EmailField()
     numero_de_cuenta = models.CharField(max_length=16)
     banco = models.CharField(max_length=15)
-    operador = models.ManyToManyField('users.User')
+    operador = models.ForeignKey('users.User', null=True, blank=True)
     
     class Meta:
         verbose_name_plural = 'Primer Registro'
@@ -40,7 +40,7 @@ class SegundoRegistro(models.Model):
     tarjeta_activa = models.BooleanField()
     tarjeta_con_fondos = models.BooleanField()
     credito = models.DecimalField(max_digits=7,decimal_places=2, blank=True, null=True )
-    operador = models.ForeignKey('users.User')
+    operador = models.ForeignKey('users.User' ,null=True, blank=True)
 
 
 
@@ -49,6 +49,9 @@ class SegundoRegistro(models.Model):
         
     def __str__(self):
         return self.cliente.nombre
+
+    def get_absolute_url(self):
+        return reverse('editar_segundo_registro', kwargs={'pk': self.pk})
 
 
 #en teoria este es el segundo
@@ -70,6 +73,10 @@ class TercerRegistro(models.Model):
 class Productos (models.Model):
     name = models.CharField(max_length=100)
     price = models.SmallIntegerField()
+
+    class Meta:
+        verbose_name = "Productos"
+        verbose_name_plural = "Productos"
 
     def __str__(self):
         return self.name

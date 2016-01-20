@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',
+    'suit',
+    #'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -114,3 +115,13 @@ MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'users.User'
 AUTH_PROFILE_MODULE = 'users.User'
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Sitio de Administracion Catemm',
+    'LIST_PER_PAGE': 40,
+
+    'MENU_ICONS': {
+        'sites': 'icon-leaf',
+        'auth': 'icon-lock',
+    }
+}
