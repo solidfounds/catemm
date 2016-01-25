@@ -8,16 +8,16 @@ from django.core.urlresolvers import reverse
 class PrimerRegistro(models.Model):
     nombre = models.CharField(max_length=55)
     apellidos = models.CharField(max_length=80)
-    direccion = models.TextField()
+    direccion = models.TextField('dirección',)
     nsn = models.CharField(max_length=15)
-    telefono= models.SmallIntegerField()
+    telefono= models.SmallIntegerField('teléfono',)
     empresa = models.CharField(max_length=254)
     registro_patronal = models.CharField(max_length=15)
-    comision = models.DecimalField(max_digits=7, decimal_places=2)
+    comision = models.DecimalField('comisión',max_digits=7, decimal_places=2)
     ife = models.FileField(upload_to='media/ifes')
 
     email = models.EmailField()
-    numero_de_cuenta = models.CharField(max_length=16)
+    numero_de_cuenta = models.CharField('número de cuenta',max_length=16)
     banco = models.CharField(max_length=15)
     operador = models.ForeignKey('users.User', null=True, blank=True)
     
@@ -33,13 +33,13 @@ class PrimerRegistro(models.Model):
 class SegundoRegistro(models.Model):
     cliente = models.ForeignKey(PrimerRegistro)
     fecha = models.DateField(auto_now_add=True)
-    caratula =  models.CharField(max_length=50)
+    caratula =  models.CharField('carátula',max_length=50)
     tarjeta_de_mejoravit = models.FileField(upload_to='media/targeta_infonavit')
-    numero_tarjeta = models.SmallIntegerField()
+    numero_tarjeta = models.SmallIntegerField('número de tarjeta')
     tarjeta_entregada = models.BooleanField()
     tarjeta_activa = models.BooleanField()
     tarjeta_con_fondos = models.BooleanField()
-    credito = models.DecimalField(max_digits=7,decimal_places=2, blank=True, null=True )
+    credito = models.DecimalField('crédito',max_digits=7,decimal_places=2, blank=True, null=True )
     operador = models.ForeignKey('users.User' ,null=True, blank=True)
 
 
@@ -60,7 +60,7 @@ class TercerRegistro(models.Model):
     compra = models.TextField()
     importe_total = models.DecimalField(max_digits=10, decimal_places=2)
     efectivo = models.DecimalField(max_digits=10, decimal_places=2)
-    comision =  models.DecimalField(max_digits=10, decimal_places=2)
+    comision =  models.DecimalField( max_digits=10, decimal_places=2)
     fecha = models.DateField(auto_now_add=True)
     numero_credito = models.CharField(max_length=10)
     class Meta:
@@ -96,3 +96,6 @@ class DetalleVenta_(models.Model):
     cantidad = models.PositiveSmallIntegerField(blank=True,default=0,null=True)
     def __str__(self):
         return "%s = %s" % (self.producto.nombre, self.producto.precio)
+
+
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  PrimerRegistro,SegundoRegistro, TercerRegistro, Productos
+from .models import  PrimerRegistro,SegundoRegistro, Productos
 from users.models import Sucursal
 # Register your models here.
 """
@@ -57,3 +57,4 @@ class TercerRegistroAdmin(admin.ModelAdmin):
 
     pass
 """
+

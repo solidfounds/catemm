@@ -34,17 +34,18 @@
 
 
     <div class="row" ng-app="Clientes">
-		<table class="table table-bordered display" id="example">
+        <div class="table-responsive">
+		    <table class="table table-bordered display" id="example">
 		    <thead>
 		      <tr>
 		        <th>Nombre:</th>
-		        <th>Caratula</th>
+		        <th>Carátula</th>
 		        <th>Num. Tarjeta Mejoravit</th>
-                 <th>Credito Mejoravit</th>
+                 <th>Crédito Mejoravit</th>
 		        <th>ODC 1</th>
 		        <th>ODC 2</th>
 		        <th>ODC 3</th>
-		        <th>Estatus</th>
+		        <th>Estátus</th>
 		        <th>Fecha</th>
 		        <th>Factura</th>
 		        <th>Comision</th>
@@ -77,6 +78,7 @@
                                     <div class="modal fade bs-example-modal-sm" id="{{faa.cliente.id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                       <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
+                                            <div class="table-responsive">
                                               <table class="table">
                                                 <thead>
                                                   <tr>
@@ -146,7 +148,8 @@
                     {% endfor %}
 		    </tbody>
 		 </table>
-</div>
+        </div>
+    </div>
 
 
 

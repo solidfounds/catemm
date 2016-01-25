@@ -46,7 +46,7 @@ def primerRegistro(request):
             post = form.save(commit=False)
             post.operador = usuario
             post.save()
-            return HttpResponseRedirect('agregar_clientes')
+            return redirect('agregar_clientes')
     else:
         form = PrimerRegistroFORM()
     mis_clientes = PrimerRegistro.objects.filter(operador__username__contains=usuario)
@@ -74,7 +74,7 @@ def segundoRegistro(request):
             posta = form.save(commit=False)
             posta.operador = usuario
             posta.save()
-            return HttpResponseRedirect('/segundo_registro/')
+            return redirect('segundo_registro')
     else:
         form = SegundoRegistroForm()
     mis_clientes = SegundoRegistro.objects.filter(operador__username__contains=usuario)
