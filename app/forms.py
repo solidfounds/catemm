@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from .models import PrimerRegistro, SegundoRegistro
+from .models import PrimerRegistro, SegundoRegistro, Order
 from django import forms
 from django.forms import ModelForm
 
@@ -41,3 +41,8 @@ class SegundoRegistroForm(ModelForm):
 
 
 
+class OrderForm(ModelForm):
+    class Meta:
+        model = Order
+        exclude = ('user', 'id', 'total_amount')
+        fields = ('orden_de_compra',)

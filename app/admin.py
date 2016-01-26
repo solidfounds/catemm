@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  PrimerRegistro,SegundoRegistro, Productos
+from .models import  PrimerRegistro,SegundoRegistro, Productos, Order, ProductOrder
 from users.models import Sucursal
 # Register your models here.
 """
@@ -57,4 +57,15 @@ class TercerRegistroAdmin(admin.ModelAdmin):
 
     pass
 """
+class ProductInline(admin.TabularInline):
+     extra = 1
+     model = ProductOrder
+     verbose_name = "Productos en esta orden"
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [ProductInline,]
+    list_display = ('__str__', 'orden_de_compra', 'order_date', 'total_amount', 'user')
+
 

@@ -30,19 +30,19 @@ shop.factory('$shop', ['$rootScope', function ($rootScope)
 		*/
 		minimRequeriments: function(product)
 		{
-			if(!product.qty || !product.price || !product.id)
+			if(!product.quantity || !product.price || !product.id)
 			{
-				throw new Error("Los campos qty, price y id son necesarios");
+				throw new Error("Los campos quantity, price y id son necesarios");
 			}
-			if(isNaN(product.qty) || isNaN(product.price) || isNaN(product.id))
+			if(isNaN(product.quantity) || isNaN(product.price) || isNaN(product.id))
 			{
-				throw new Error("Los campos qty, price y id deben ser númericos");
+				throw new Error("Los campos quantity, price y id deben ser númericos");
 			}
-			if(product.qty <= 0)
+			if(product.quantity <= 0)
 			{
 				throw new Error("La cantidad añadida debe ser mayor de 0");
 			}
-			if(this.isInteger(product.qty) === false)
+			if(this.isInteger(product.quantity) === false)
 			{
 				throw new Error("La cantidad del producto debe ser un número entero");
 			}
@@ -72,15 +72,15 @@ shop.factory('$shop', ['$rootScope', function ($rootScope)
 				//si el producto existe le actualizamos la cantidad
 				if(this.checkExistsProduct(producto,$rootScope.udpShopContent) === true)
 				{
-					$rootScope.udpShopTotalPrice += parseFloat(producto.price * producto.qty,10);
-					$rootScope.udpShopTotalProducts += producto.qty;
+					$rootScope.udpShopTotalPrice += parseFloat(producto.price * producto.quantity,10);
+					$rootScope.udpShopTotalProducts += producto.quantity;
 					return {"msg":"updated"};
 				}
 				//en otro caso, lo añadimos al carrito
 				else
 				{
-					$rootScope.udpShopTotalPrice += parseFloat(producto.price * producto.qty,10);
-					$rootScope.udpShopTotalProducts += producto.qty;
+					$rootScope.udpShopTotalPrice += parseFloat(producto.price * producto.quantity,10);
+					$rootScope.udpShopTotalProducts += producto.quantity;
 					$rootScope.udpShopContent.push(producto);
 					return {"msg":"insert"};
 				}
@@ -103,7 +103,7 @@ shop.factory('$shop', ['$rootScope', function ($rootScope)
 		    {
 		        if (products[i].id === product.id)
 		        {	   	
-		        	products[i].qty += product.qty;  
+		        	products[i].quantity += product.quantity;
 		            return true;
 		        }
 		    }
@@ -122,8 +122,8 @@ shop.factory('$shop', ['$rootScope', function ($rootScope)
 			    {
 			        if ($rootScope.udpShopContent[i].id === id) 
 			        {
-			        	$rootScope.udpShopTotalPrice -= parseFloat($rootScope.udpShopContent[i].price * $rootScope.udpShopContent[i].qty,10);
-			        	$rootScope.udpShopTotalProducts -= $rootScope.udpShopContent[i].qty;
+			        	$rootScope.udpShopTotalPrice -= parseFloat($rootScope.udpShopContent[i].price * $rootScope.udpShopContent[i].quantity,10);
+			        	$rootScope.udpShopTotalProducts -= $rootScope.udpShopContent[i].quantity;
 			        	$rootScope.udpShopContent.splice(i, 1);
 			        	if(isNaN($rootScope.udpShopTotalPrice))
 			        	{
@@ -167,8 +167,8 @@ shop.factory('$shop', ['$rootScope', function ($rootScope)
 			    var product = $rootScope.udpShopContent[i];
 			    var currentProduct = i + 1;
 			    htmlForm += "<input type='hidden' name='item_number_"+currentProduct+"' value="+product.id+" />";
-			    htmlForm += "<input type='hidden' name='item_name_"+currentProduct+"' value='"+product.name+"' />";
-			    htmlForm += "<input type='hidden' name='quantity_"+currentProduct+"' value="+product.qty+" />";
+			    htmlForm += "<input type='hidden' name='item_name_"+currentProduct+"' value='"+product.title+"' />";
+			    htmlForm += "<input type='hidden' name='quantity_"+currentProduct+"' value="+product.quantity+" />";
 			    htmlForm += "<input type='hidden' name='amount_"+currentProduct+"' value="+product.price.toFixed(2)+" />";
 			}
 

@@ -134,9 +134,24 @@
                                       </div>
                                     </div>
                                 </td>
-                                <td> <a href="{% url 'odc1' cliente_id=foo.id %}">Generar</a></td>
-		                        <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
-		                        <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
+                                {% for orden in ordenes %}
+                                    {% if foo.id  == orden.user.id %}
+                                        <td>
+                                            folio:
+                                            {{ orden.id }}
+                                            <hr>
+                                            total de odc1
+                                            {{ orden.total_amount }}
+                                        </td>
+                                        {% else %}
+                                        <td><a href="{% url 'odc1' cliente_id=foo.id %}">Generar</a></td>
+		                                <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
+		                                <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
+                                    {% endif %}
+
+                                {% endfor %}
+
+
                                 <td>estatus</td>
                                 <td></td>
                                 <td></td>
