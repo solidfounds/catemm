@@ -33,7 +33,7 @@
 {% endfor %}
 
 
-    <div class="row" ng-app="Clientes">
+    <div class="row" data-ng-app="Clientes">
         <div class="table-responsive">
 		    <table class="table table-bordered display" id="example">
 		    <thead>
@@ -57,10 +57,8 @@
                     <tr>
                         <td>{{ foo.id }}{{ foo.nombre }}{{ foo.apellidos }}</td>
                         {% for faa in tarjeta %}
-
                             {% if faa.cliente.id == foo.id %}
                                 <td> {{ faa.caratula }}</td>
-
                                 <td>
                                     <div class="dropdown">
                                       <button class="btn btn-success" id="dLabel" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
@@ -73,7 +71,7 @@
                                       </ul>
                                     </div>
                                 </td>
-                                <td ng-controller="CalculatorController">
+                                <td data-ng-controller="CalculatorController">
                                     <button type="button" class="btn btn-primary" data-target="#{{faa.cliente.id}}" data-toggle="modal" data-target=".bd-example-modal-sm"  ng-init="montoInicial={{ faa.credito}}" ng-click="calculate()">{{ faa.credito }}</button>
                                     <div class="modal fade bs-example-modal-sm" id="{{faa.cliente.id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                       <div class="modal-dialog modal-sm">
@@ -135,22 +133,19 @@
                                     </div>
                                 </td>
                                 {% for orden in ordenes %}
-                                    {% if foo.id  == orden.user.id %}
-                                        <td>
+
+                                    {% if  orden.user.id   == faa.cliente.id  %}
+                                            <td>
                                             folio:
                                             {{ orden.id }}
                                             <hr>
                                             total de odc1
                                             {{ orden.total_amount }}
-                                        </td>
-                                        {% else %}
-                                        <td><a href="{% url 'odc1' cliente_id=foo.id %}">Generar</a></td>
-		                                <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
-		                                <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
+                                            <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
+		                                    <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
                                     {% endif %}
 
                                 {% endfor %}
-
 
                                 <td>estatus</td>
                                 <td></td>
