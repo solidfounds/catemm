@@ -138,10 +138,14 @@
                                                 {% for ord in orden.orden_de_compra   %}
                                                         <td>{{ ord }} {{ orden.total_amount  }}</td>
                                                 {% endfor %}
+                                        {% else %}
+                                            <td><a href="{% url 'odc1' cliente_id=foo.id %}">Generar</a></td>
+                                            <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
+                                            <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
                                         {% endif %}
-                                    {% empty %}
-                                    <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
                                     {% endfor %}
+
+
                                 <td>estatus</td>
                                 <td></td>
                                 <td></td>
