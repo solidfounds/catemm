@@ -134,13 +134,17 @@
                                         </div>
                                 </td>
                                     {% for orden in ordenes %}
-                                        {% if  orden.user.id   == faa.cliente.id  %}
-                                                {% for ord in orden.orden_de_compra   %}
-                                                        <td>{{ ord }} {{ orden.total_amount  }}</td>
-                                                {% endfor %}
-                                        {% else %}
+                                        {% if  orden.user.id   == faa.cliente.id and orden.orden_de_compra|length == 1 %}
                                             <td><a href="{% url 'odc1' cliente_id=foo.id %}">Generar</a></td>
+                                              <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
+                                            <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
+                                        {% elif orden.user.id   == faa.cliente.id and orden.orden_de_compra|length == 1 %}
+                                            <td> {{ orden.total_amount  }}</td>
                                             <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>
+                                            <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
+
+                                        {% elif orden.user.id   == faa.cliente.id and orden.orden_de_compra|length == 3  %}1
+                                            <td> {{ orden.total_amount  }}</td>
                                             <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>
                                         {% endif %}
                                     {% endfor %}
