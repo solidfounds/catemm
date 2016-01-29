@@ -27,14 +27,17 @@ class ProductosAdmin(admin.ModelAdmin):
 @admin.register(PrimerRegistro)
 class PrimerRegistroAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'apellidos', 'direccion','nsn','telefono','empresa','registro_patronal','comision','ife','email','numero_de_cuenta','banco')
+    list_filter = ('empresa',)
+    search_fields = ('nombre', 'id', 'nsn', 'registro_patronal', 'email', 'numero_de_cuenta')
     #list_filter = ('operador_que_lo_registro__nombre','fecha')
     pass
 
 
 @admin.register(SegundoRegistro)
 class SegundoRegistroAdmin(admin.ModelAdmin):
-    list_display = ('cliente', 'fecha', 'caratula','tarjeta_de_mejoravit', 'numero_tarjeta','tarjeta_entregada','tarjeta_activa','tarjeta_con_fondos','credito', 'operador')
-    pass
+    list_display = ('cliente', 'fecha', 'caratula','tarjeta_de_mejoravit', 'numero_tarjeta','tarjeta_entregada','tarjeta_fondos','tarjeta_activa','credito', 'operador', 'comision')
+    list_filter = ('fecha','tarjeta_entregada','tarjeta_activa','tarjeta_fondos','operador' )
+    search_fields = ('caratula', 'numero_tarjeta', 'cliente')
 
 """
 @admin.register(Articulos)
@@ -66,6 +69,7 @@ class ProductInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [ProductInline,]
-    list_display = ('__str__', 'orden_de_compra', 'order_date', 'total_amount', 'user')
+    list_display = ('__str__', 'order_date', 'orden_compra','total_amount', 'user')
+    list_filter = ('order_date','orden_compra','operador__username',)
 
 

@@ -28,9 +28,9 @@ def clientes(request):
 
     tarjeta = SegundoRegistro.objects.filter(operador__username__contains= usuario)
     ordenes = Order.objects.filter(operador__username__contains= usuario)
-    orden1 = Order.objects.filter(Q(orden_de_compra = "1") & Q(operador__username__contains= usuario))
-    orden2 = Order.objects.filter(Q(orden_de_compra = "2") & Q(operador__username__contains= usuario))
-    orden3 = Order.objects.filter(Q(orden_de_compra = "3") & Q(operador__username__contains= usuario))
+    orden1 = Order.objects.filter(Q(orden_compra = "1") & Q(operador__username__contains= usuario))
+    orden2 = Order.objects.filter(Q(orden_compra = "2") & Q(operador__username__contains= usuario))
+    orden3 = Order.objects.filter(Q(orden_compra = "3") & Q(operador__username__contains= usuario))
     return render(request, 'clientes.html', {
         'cliente': cliente,
         'tarjeta': tarjeta,
@@ -116,8 +116,8 @@ def SegundoRegistroDelete(request, pk, template_name='delete/confirmacion2.html'
 def orden_compra1(request, cliente_id=None):
     #data = serializers.serialize("json", Productos.objects.all(), fields=('pk', 'name', 'price'))
 
-    if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_de_compra=1)).exists():
-        ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_de_compra=1))
+    if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_compra=1)).exists():
+        ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_compra=1))
         productos = ProductOrder.objects.filter(order =ordencliente )
         return render(request, 'odc/odc1-echa.html',{'ordencliente':ordencliente,
                                                      'productos':productos})
@@ -154,7 +154,7 @@ def orden_compra1(request, cliente_id=None):
 @login_required(login_url='/')
 def orden_compra2(request, cliente_id=None):
 
-    if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_de_compra=2)).exists():
+    if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_compra=2)).exists():
         ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_de_compra=2))
         productos = ProductOrder.objects.filter(order =ordencliente )
         return render(request, 'odc/odc1-echa.html',{'ordencliente':ordencliente,
@@ -192,7 +192,7 @@ def orden_compra2(request, cliente_id=None):
 @login_required(login_url='/')
 def orden_compra3(request, cliente_id=None):
 
-    if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_de_compra=3)).exists():
+    if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_compra=3)).exists():
         ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_de_compra=2))
         productos = ProductOrder.objects.filter(order =ordencliente )
         return render(request, 'odc/odc1-echa.html',{'ordencliente':ordencliente,

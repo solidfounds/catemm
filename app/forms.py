@@ -27,7 +27,7 @@ class PrimerRegistroFORM(ModelForm):
 class SegundoRegistroForm(ModelForm):
     class Meta:
         model = SegundoRegistro
-        fields = ('cliente', 'caratula', 'tarjeta_de_mejoravit', 'numero_tarjeta', 'tarjeta_entregada', 'tarjeta_activa', 'tarjeta_con_fondos', 'credito')
+        fields = ('cliente', 'caratula', 'tarjeta_de_mejoravit', 'numero_tarjeta', 'tarjeta_entregada', 'tarjeta_activa', 'tarjeta_fondos', 'credito')
         widgets={
             'cliente': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm col-sm-4'}),
              'caratula': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm  col-sm-4'}),
@@ -35,7 +35,7 @@ class SegundoRegistroForm(ModelForm):
              'numero_tarjeta': forms.TextInput(attrs={'type':'select','required':'true','class':'form-control form-control-sm  col-md-2','placeholder':'ejemplo: 4488-9988-5533-1122', 'max':"9999999999999999"}),
              'tarjeta_entregada': forms.CheckboxInput(attrs={'class':'form-control form-control-sm  col-md-2'}),
              'tarjeta_activa': forms.CheckboxInput(attrs={'class':'form-control form-control-sm  col-md-2'}),
-             'tarjeta_con_fondos': forms.CheckboxInput(attrs={'class':'form-control form-control-sm  col-md-2 '}),
+             'tarjeta_fondos': forms.CheckboxInput(attrs={'class':'form-control form-control-sm  col-md-2 '}),
              'credito': forms.TextInput(attrs={'type':'number','required':'true','class':'form-control form-control-sm  col-md-2','max':"9999999999",'placeholder':'Debe contener puntos decimales: 1500.00'}),
          }
 
@@ -45,4 +45,4 @@ class OrderForm(ModelForm):
     class Meta:
         model = Order
         exclude = ('user', 'id', 'total_amount')
-        fields = ('orden_de_compra',)
+        fields = ('orden_compra',)

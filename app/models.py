@@ -41,7 +41,7 @@ class SegundoRegistro(models.Model):
     numero_tarjeta = models.SmallIntegerField('número de tarjeta')
     tarjeta_entregada = models.BooleanField()
     tarjeta_activa = models.BooleanField()
-    tarjeta_con_fondos = models.BooleanField()
+    tarjeta_fondos = models.BooleanField('tarjeta con fondos')
     credito = models.DecimalField('crédito', max_digits=7, decimal_places=2, blank=True, null=True)
     operador = models.ForeignKey('users.User', null=True, blank=True)
 
@@ -53,6 +53,13 @@ class SegundoRegistro(models.Model):
 
     def get_absolute_url(self):
         return reverse('editar_segundo_registro', kwargs={'pk': self.pk})
+
+    def comision(self):
+        manoDeObra = (self.credito-(self.credito*20/100))
+        comision = (manoDeObra*4/100)
+        menos_comision = comision - manoDeObra
+
+        return menos_comision
 
 
 # en teoria este es el segundo
@@ -91,7 +98,7 @@ ODC_CHOICES = (
 
 
 class Order(models.Model):
-    orden_de_compra = models.CharField(max_length=1,choices=ODC_CHOICES)
+    orden_compra = models.CharField('orden de compra',max_length=1,choices=ODC_CHOICES)
     order_date = models.DateTimeField(auto_now_add=True, verbose_name='date')
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey(PrimerRegistro)
