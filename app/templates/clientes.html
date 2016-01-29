@@ -157,7 +157,7 @@
                                     {% for ord3 in orden3 %}
                                         {% if faa.cliente.id == ord3.user.id %}
                                             {% if ord3.orden_de_compra %}
-                                                Folio:{{ ord3.orden_de_compra }}- Monto:{{ ord3.total_amount }}
+                                                Folio:{{ ord3.id }}- Monto:{{ ord3.total_amount }}
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
@@ -200,6 +200,8 @@
 {% endblock contenido %}
 
 {% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
     <script>
      	var app = angular.module('Clientes', [])
      		app.config(function($interpolateProvider) {

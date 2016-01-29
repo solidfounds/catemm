@@ -37,7 +37,7 @@ class SegundoRegistro(models.Model):
     cliente = models.ForeignKey(PrimerRegistro)
     fecha = models.DateField(auto_now_add=True)
     caratula = models.CharField('carátula', max_length=50)
-    tarjeta_de_mejoravit = models.FileField(upload_to='media/targeta_infonavit')
+    tarjeta_de_mejoravit = models.FileField(upload_to='media/targeta_infonavit', blank=True, null=True)
     numero_tarjeta = models.SmallIntegerField('número de tarjeta')
     tarjeta_entregada = models.BooleanField()
     tarjeta_activa = models.BooleanField()
