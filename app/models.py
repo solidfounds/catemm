@@ -108,3 +108,6 @@ class ProductOrder(models.Model):
     order = models.ForeignKey(Order)
     product = models.ForeignKey(Productos)
     quantity = models.IntegerField()
+
+    def importe(self):
+        return (self.product.price * self.quantity)

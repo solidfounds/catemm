@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+
+    <div class="row">
+			<div class="container">
+				<div class="panel panel-default">
+				  <!-- Default panel contents -->
+                    {% for foo in ordencliente %}
+                          <div class="panel-heading">
+                                <div class="alinl .col-md-6"><h4>Nota de Remisión</h4></div>
+                                <div class="alinr .col-md-6"><strong>Folio: {{ foo.id }}</strong></div>
+                          </div>
+                          <div class="panel-body">
+                            <div>
+                                  <div class=" col-xs-2">
+                                    <label for="fecha">Fecha: {{ foo.order_date }}</label>
+                                  </div>
+                            </div>
+                                  <div class=" col-xs-5">
+                                    <label for="exampleInputEmail1">Sr:  {{ foo.user }} {{ foo.user.apellidos }}</label>
+                                  </div>
+                                  <div class=" col-xs-5">
+                                    <label for="exampleInputPassword1">Dirección: {{ foo.user.direccion }}</label>
+                                  </div>
+                          </div>
+                      {% endfor %}
+				  <!-- Table -->
+				  <table class="table">
+				  	    <thead>
+					      <tr>
+					        <th>Articulo</th>
+					        <th>Precio Unitario</th>
+					        <th>Cantidad</th>
+					        <th>Importe</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+                            {% for prod in productos %}
+                                <tr>
+                                    <td>{{ prod.product }}</td>
+                                    <td>{{ prod.product.price }}</td>
+                                    <td>{{ prod.quantity }}</td>
+
+                                    <td>{{ prod.importe}}</td>
+                                </tr>
+                            {% endfor %}
+
+
+					    </tbody>
+				  </table>
+				</div>
+					<div class="row">
+						<div class="col-md-9">
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-primary">Guardar y generar PDF</button>
+						</div>
+					</div>
+
+			</div>
+		</div>
+
+{% endblock %}
+

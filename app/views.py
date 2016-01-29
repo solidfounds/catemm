@@ -1,4 +1,5 @@
 from itertools import chain
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PrimerRegistroFORM,SegundoRegistroForm, OrderForm
 from django.http import HttpResponseRedirect
@@ -25,10 +26,16 @@ def clientes(request):
 
     tarjeta = SegundoRegistro.objects.filter(operador__username__contains= usuario)
     ordenes = Order.objects.filter(operador__username__contains= usuario)
+    orden1 = Order.objects.filter(Q(orden_de_compra = "1") & Q(operador__username__contains= usuario))
+    orden2 = Order.objects.filter(Q(orden_de_compra = "2") & Q(operador__username__contains= usuario))
+    orden3 = Order.objects.filter(Q(orden_de_compra = "3") & Q(operador__username__contains= usuario))
     return render(request, 'clientes.html', {
         'cliente': cliente,
         'tarjeta': tarjeta,
         'ordenes': ordenes,
+        'orden1': orden1,
+        'orden2': orden2,
+        'orden3': orden3,
     })
 
 
@@ -61,6 +68,7 @@ def PrimerRegistroEdit(request, pk, template_name='editar/primer_registro.html')
         form.save()
         return redirect('agregar_clientes')
     return render(request, template_name, {'form':form})
+
 def PrimerRegistroDelete(request, pk, template_name='delete/confirmacion.html'):
     clientes = get_object_or_404(PrimerRegistro, pk=pk)
     if request.method=='POST':
@@ -102,34 +110,42 @@ def SegundoRegistroDelete(request, pk, template_name='delete/confirmacion2.html'
 
 def orden_compra1(request, cliente_id=None):
     #data = serializers.serialize("json", Productos.objects.all(), fields=('pk', 'name', 'price'))
-    cliente =get_object_or_404(PrimerRegistro, id=cliente_id)
-    productos = Productos.objects.all()
-    if request.method == "POST":
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            user = cliente
-            order_content = json.loads(request.POST['cartJSONdata'])
-            order = form.save(commit=False)
-            order.user = user
-            order.operador = request.user
-            order.total_amount = 0
-            order.save()   #We have to save the order before calculate ammount
-            order.total_amount = saveOrderProducts(order_content, order)
-            order.save()
-            books = ProductOrder.objects.filter(order=order)
-            products = list(chain( books,))
-            return redirect('/')
-            #return render(request, 'success.html', locals())
+
+    if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_de_compra=1)).exists():
+        ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_de_compra=1))
+        productos = ProductOrder.objects.filter(order =ordencliente )
+        return render(request, 'odc/odc1-echa.html',{'ordencliente':ordencliente,
+                                                     'productos':productos})
+
     else:
-        form = OrderForm()
-    #lista = [{'pk':producto.pk, 'name':producto.nombre, 'price': Decimal(producto.precio), } for producto in productos]
-    #serializado = json.dumps(lista)
-    return render(request, 'odc/odc1.html', { 'productos':productos,
-                                        'cliente':cliente,
-                                        'form': form,
-                                        #'data':data,
-                                       #'lista':serializado,
-                                       } )
+        cliente =get_object_or_404(PrimerRegistro, id=cliente_id)
+        productos = Productos.objects.all()
+        if request.method == "POST":
+            form = OrderForm(request.POST)
+            if form.is_valid():
+                user = cliente
+                order_content = json.loads(request.POST['cartJSONdata'])
+                order = form.save(commit=False)
+                order.user = user
+                order.operador = request.user
+                order.total_amount = 0
+                order.save()   #We have to save the order before calculate ammount
+                order.total_amount = saveOrderProducts(order_content, order)
+                order.save()
+                books = ProductOrder.objects.filter(order=order)
+                products = list(chain( books,))
+                return redirect('/')
+                #return render(request, 'success.html', locals())
+        else:
+            form = OrderForm()
+        #lista = [{'pk':producto.pk, 'name':producto.nombre, 'price': Decimal(producto.precio), } for producto in productos]
+        #serializado = json.dumps(lista)
+        return render(request, 'odc/odc1.html', { 'productos':productos,
+                                            'cliente':cliente,
+                                            'form': form,
+                                            #'data':data,
+                                           #'lista':serializado,
+                                           } )
 def orden_compra2(request, cliente_id=None):
     #data = serializers.serialize("json", Productos.objects.all(), fields=('pk', 'name', 'price'))
     cliente =get_object_or_404(PrimerRegistro, id=cliente_id)
