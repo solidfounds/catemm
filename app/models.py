@@ -12,7 +12,7 @@ class PrimerRegistro(models.Model):
     apellidos = models.CharField(max_length=80)
     direccion = models.TextField('dirección', )
     nsn = models.CharField(max_length=15)
-    telefono = models.SmallIntegerField('teléfono', )
+    telefono = models.PositiveIntegerField('teléfono', )
     empresa = models.CharField(max_length=254)
     registro_patronal = models.CharField(max_length=15)
     comision = models.DecimalField('comisión', max_digits=7, decimal_places=2)
@@ -38,7 +38,7 @@ class SegundoRegistro(models.Model):
     fecha = models.DateField(auto_now_add=True)
     caratula = models.CharField('carátula', max_length=50)
     tarjeta_de_mejoravit = models.FileField(upload_to='media/targeta_infonavit', blank=True, null=True)
-    numero_tarjeta = models.SmallIntegerField('número de tarjeta')
+    numero_tarjeta = models.PositiveIntegerField('número de tarjeta')
     tarjeta_entregada = models.BooleanField()
     tarjeta_activa = models.BooleanField()
     tarjeta_fondos = models.BooleanField('tarjeta con fondos')
@@ -81,7 +81,7 @@ class TercerRegistro(models.Model):
 
 class Productos(models.Model):
     name = models.CharField(max_length=100)
-    price = models.SmallIntegerField()
+    price = models.PositiveIntegerField()
 
     class Meta:
         verbose_name = "Productos"

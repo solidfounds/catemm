@@ -30,8 +30,8 @@ urlpatterns = [
     url(r'^desempeno/', 'app.views.desempeno', name='desempeno'),
 
     url(r'^$', userlogin.as_view(), name='login'),
-    	#url(r'^$', 'users.views.userlogin', name='login'),
-	url(r'^salir/$', 'users.views.LogOut', name='logout'),
+        #url(r'^$', 'users.views.userlogin', name='login'),
+    url(r'^salir/$', 'users.views.LogOut', name='logout'),
     url(r'^odc1/(?P<cliente_id>\d+)/', 'app.views.orden_compra1', name='odc1'),
     url(r'^odc2/(?P<cliente_id>\d+)/', 'app.views.orden_compra2', name='odc2'),
     url(r'^odc3/(?P<cliente_id>\d+)/', 'app.views.orden_compra3', name='odc3'),

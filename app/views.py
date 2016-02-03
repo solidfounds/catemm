@@ -79,6 +79,7 @@ def PrimerRegistroDelete(request, pk, template_name='delete/confirmacion.html'):
         clientes.delete()
         return redirect('agregar_clientes')
     return render(request, template_name, {'object':clientes})
+
 @login_required(login_url='/')
 def segundoRegistro(request):
     usuario = request.user
@@ -155,7 +156,7 @@ def orden_compra1(request, cliente_id=None):
 def orden_compra2(request, cliente_id=None):
 
     if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_compra=2)).exists():
-        ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_de_compra=2))
+        ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_compra=2))
         productos = ProductOrder.objects.filter(order =ordencliente )
         return render(request, 'odc/odc1-echa.html',{'ordencliente':ordencliente,
                                                      'productos':productos})
@@ -193,7 +194,7 @@ def orden_compra2(request, cliente_id=None):
 def orden_compra3(request, cliente_id=None):
 
     if  Order.objects.filter(Q(user__id=cliente_id)& Q(orden_compra=3)).exists():
-        ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_de_compra=2))
+        ordencliente = Order.objects.filter(Q(user__id=cliente_id)&Q(orden_compra=2))
         productos = ProductOrder.objects.filter(order =ordencliente )
         return render(request, 'odc/odc1-echa.html',{'ordencliente':ordencliente,
                                                      'productos':productos})

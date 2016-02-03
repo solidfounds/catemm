@@ -146,7 +146,7 @@
                                 <td>
                                     {% for ord2 in orden2 %}
                                         {% if faa.cliente.id == ord2.user.id %}
-                                            {% if  ord2.orden_de_compra %}
+                                            {% if  ord2.orden_compra %}
                                                 Folio:{{ ord2.id }}- Monto:{{ ord2.total_amount }}
                                             {% endif %}
                                         {% endif %}
@@ -156,7 +156,7 @@
                                 <td>
                                     {% for ord3 in orden3 %}
                                         {% if faa.cliente.id == ord3.user.id %}
-                                            {% if ord3.orden_de_compra %}
+                                            {% if ord3.orden_compra %}
                                                 Folio:{{ ord3.id }}- Monto:{{ ord3.total_amount }}
                                             {% endif %}
                                         {% endif %}

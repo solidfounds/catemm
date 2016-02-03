@@ -29,7 +29,7 @@ class SegundoRegistroForm(ModelForm):
         model = SegundoRegistro
         fields = ('cliente', 'caratula', 'tarjeta_de_mejoravit', 'numero_tarjeta', 'tarjeta_entregada', 'tarjeta_activa', 'tarjeta_fondos', 'credito')
         widgets={
-            'cliente': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm col-sm-4'}),
+            #'cliente': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm col-sm-4'}),
              'caratula': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm  col-sm-4'}),
              'tarjeta_de_mejoravit': forms.ClearableFileInput(attrs={'type':'file','class':'form-control form-control-sm  col-sm-4'}),
              'numero_tarjeta': forms.TextInput(attrs={'type':'select','required':'true','class':'form-control form-control-sm  col-md-2','placeholder':'ejemplo: 4488-9988-5533-1122', 'max':"9999999999999999"}),
