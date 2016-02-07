@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block contenido %}
+
+    <table class="table">
+         <thead>
+          <tr>
+             <th>Orden de Compra</th>
+             <th>Total</th>
+          </tr>
+         </thead>
+         <tbody>
+         {% for foo in post %}
+            <tr>
+                <td>{{ foo.orden_compra }}</td>
+                <td>{{ foo.total_amount }}</td>
+            </tr>
+
+
+         {% endfor %}
+         </tbody>
+         <tfoot>
+          <tr>
+             <td>Total</td>
+             <td> {{ posta.total_amount__sum }}</td>
+          </tr>
+         </tfoot>
+    </table>
+    {% if sent %}
+        <h1>Email fue coorectamente enviado</h1>
+        <p>"fue guardado" fue correctamente enviado por email.</p>
+    {% else %}
+        <h1>Share " by e-mail</h1>
+        <form  method="post">
+            {% csrf_token %}
+            <div>
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div>
+                {{ form.comments.label_tag }}
+                {{ form.comments }}
+            </div>
+
+            <div>
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div>
+                {{ form.to.label_tag }}
+                {{ form.to }}
+            </div>
+{#            {% for fa in post %}#}
+{#                <div>#}
+{#                   {{ form.ord1 }}#}
+{#                </div>#}
+{#                <div>#}
+{##}
+{#                    {{ form.ord2 }}#}
+{#                </div>#}
+{#                <div>#}
+{#                    {{ form.ord3 }}#}
+{#                    {{ form.ord3.value|default_if_none:"1"  }}#}
+{#                </div>#}
+{#            {% endfor %}#}
+
+{#            {% for field in form %}#}
+{#                <div>#}
+{#                    {{ field.errors }}#}
+{#                    {{ field.label_tag }} {{ field }}#}
+{#                </div>#}
+{#            {% endfor %}#}
+
+            <input type="submit" value="Send e-mail">
+        </form>
+    {% endif %}
+
+
+
+{% endblock %}

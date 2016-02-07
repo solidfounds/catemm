@@ -39,9 +39,6 @@ class SegundoRegistro(models.Model):
     caratula = models.CharField('carátula', max_length=50)
     tarjeta_de_mejoravit = models.FileField(upload_to='media/targeta_infonavit', blank=True, null=True)
     numero_tarjeta = models.PositiveIntegerField('número de tarjeta')
-    tarjeta_entregada = models.BooleanField()
-    tarjeta_activa = models.BooleanField()
-    tarjeta_fondos = models.BooleanField('tarjeta con fondos')
     credito = models.DecimalField('crédito', max_digits=7, decimal_places=2, blank=True, null=True)
     operador = models.ForeignKey('users.User', null=True, blank=True)
 
@@ -71,6 +68,7 @@ class TercerRegistro(models.Model):
     comision = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateField(auto_now_add=True)
     numero_credito = models.CharField(max_length=10)
+    objects = models.Manager()
 
     class Meta:
         verbose_name_plural = 'Tercer Registro'
@@ -104,12 +102,11 @@ class Order(models.Model):
     user = models.ForeignKey(PrimerRegistro)
     operador = models.ForeignKey('users.User')
 
-    # Total amount should change every time we save
-    # because orders can be modified via admin site
-
-
     def __str__(self):
         return 'Orden No. %i' % self.id
+
+    def get_absolute_url(self):
+        return reverse('enviar_email', args=[ self.id,])
 
 class ProductOrder(models.Model):
     order = models.ForeignKey(Order)

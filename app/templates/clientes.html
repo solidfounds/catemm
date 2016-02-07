@@ -38,6 +38,7 @@
 		    <table class="table table-bordered display" id="example">
 		    <thead>
 		      <tr>
+                  <th>ID</th>
 		        <th>Nombre:</th>
 		        <th>Carátula</th>
 		        <th>Num. Tarjeta Mejoravit</th>
@@ -45,17 +46,16 @@
 		        <th>ODC 1</th>
 		        <th>ODC 2</th>
 		        <th>ODC 3</th>
-		        <th>Estátus</th>
-		        <th>Fecha</th>
-		        <th>Factura</th>
-		        <th>Comision</th>
-		        <th>Efectivo</th>
+		        <th>Factura</th>¿
+                  <th>Enviar</th>
+
 		      </tr>
 		    </thead>
 		    <tbody >
                     {% for foo in cliente %}
                     <tr>
-                        <td>{{ foo.id }}{{ foo.nombre }}{{ foo.apellidos }}</td>
+                        <td>{{ foo.id }}</td>
+                        <td>{{ foo.nombre }}{{ foo.apellidos }}</td>
                         {% for faa in tarjeta %}
                             {% if faa.cliente.id == foo.id %}
                                 <td> {{ faa.caratula }}</td>
@@ -64,13 +64,9 @@
                                       <button class="btn btn-success" id="dLabel" data-target="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
                                         {{ faa.numero_tarjeta }}<span class="caret"></span>
                                       </button>
-                                      <ul class="dropdown-menu" aria-labelledby="dLabel">
-                                        <li class="dropdown-item {{ faa.tarjeta_entregada  }}" type="button">Entregada</li>
-                                        <li class="dropdown-item {{ faa.tarjeta_activa }}" type="button">Activa</li>
-                                        <li class="dropdown-item {{ faa.tarjeta_con_fondos}}" type="button">Con fondos</li>
-                                      </ul>
                                     </div>
                                 </td>
+
                                 <td data-ng-controller="CalculatorController">
                                     <button type="button" class="btn btn-primary" data-target="#{{faa.cliente.id}}" data-toggle="modal" data-target=".bd-example-modal-sm"  data-ng-init="montoInicial={{ faa.credito}}" data-ng-click="calculate()">{{ faa.credito }}</button>
                                     <div class="modal fade bs-example-modal-sm" id="{{faa.cliente.id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -92,39 +88,24 @@
                                                     <td>100%</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Mano de Obra</td>
+                                                    <td>Mano de Obra(Retiro efectivo cajero)</td>
                                                     <td>-{$ manoObra $}</td>
                                                     <td>-20%</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Estado</td>
+                                                    <td>Credito(Saldo/FCM)</td>
                                                     <td>{$ monto1 $}</td>
-                                                    <td></td>
+                                                    <td>80%</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Comisión</td>
-                                                    <td>-{$ comisionA $}</td>
-                                                    <td>-4%</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Estado</td>
-                                                    <td>{$ monto2 $}</td>
-                                                    <td></td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Compra Material</td>
-                                                    <td>{$ monto2 $}</td>
-                                                    <td></td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Impuestos</td>
-                                                    <td>{$ iva $}</td>
-                                                    <td>-16%</td>
+                                                    <td>Impuestos(16%iva+4% infonavit)</td>
+                                                    <td>-{$ veinteiva $}</td>
+                                                    <td>-20%</td>
                                                   </tr>
                                                    <tr>
                                                     <td>Total</td>
-                                                    <td>{$ total $}</td>
-                                                    <td></td>
+                                                    <td>{$ iva $}</td>
+                                                    <td>Entrega  efectivo</td>
                                                   </tr>
                                                 </tbody>
                                               </table>
@@ -133,11 +114,12 @@
                                     </div>
                                         </div>
                                 </td>
+                        <div data-ng-controller="FacturaController">
                                 <td>
                                     {% for ord1 in orden1 %}
                                         {% if faa.cliente.id == ord1.user.id %}
                                             {% if ord1.orden_compra %}
-                                                Folio:{{ ord1.id }} - Monto: {{ ord1.total_amount }}
+                                                Folio:{{ ord1.id }} - <div data-ng-init="ord1={{ ord1.total_amount }}">Monto: {{ ord1.total_amount }}</div>
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
@@ -147,7 +129,7 @@
                                     {% for ord2 in orden2 %}
                                         {% if faa.cliente.id == ord2.user.id %}
                                             {% if  ord2.orden_compra %}
-                                                Folio:{{ ord2.id }}- Monto:{{ ord2.total_amount }}
+                                                Folio:{{ ord2.id }}- <div data-ng-init="ord2={{ ord2.total_amount }}">Monto:{{ ord2.total_amount }}</div>
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
@@ -157,35 +139,71 @@
                                     {% for ord3 in orden3 %}
                                         {% if faa.cliente.id == ord3.user.id %}
                                             {% if ord3.orden_compra %}
-                                                Folio:{{ ord3.id }}- Monto:{{ ord3.total_amount }}
+                                                Folio:{{ ord3.id }}- <div data-ng-init="ord3={{ ord3.total_amount }}">Monto:{{ ord3.total_amount }}</div>
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
                                     <a href="{% url 'odc3' cliente_id=foo.id %}">Ver</a>
                                 </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-target="#{{faa.cliente.id}}{{ faa.cliente.nsn }}" data-toggle="modal" data-target=".bd-example-modal-sm"  ng-click="ordeness()">ver</button>
+                                    <div class="modal fade bs-example-modal-sm" id="{{faa.cliente.id}}{{ faa.cliente.nsn }}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="table-responsive">
+                                              <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th>Orden de Compra</th>
+                                                    <th>Id </th>
+                                                    <th>Monto</th>
+                                                    <th>%</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for odc  in odcs %}
+                                                    {% if faa.cliente.id == odc.user.id %}
+                                                        <tr data-ng-controller="FacturaController">
+                                                            {% if odc.orden_compra == "1" %}
+                                                            <td>{{ odc.orden_compra }}</td>
+                                                                <td>{{ odc.id }}</td>
+                                                            <td>{{ odc.total_amount }}</td>
+                                                            {% endif %}
+                                                             {% if odc.orden_compra == "2" %}
+                                                            <td>{{ odc.orden_compra }}</td>
+                                                                  <td>{{ odc.id }}</td>
+                                                                 <td>{{ odc.total_amount }}</td>
+                                                            {% endif %}
+                                                            {% if odc.orden_compra == "3" %}
+                                                                <td>{{ odc.orden_compra }}</td>
+                                                                 <td>{{ odc.id }}</td>
+                                                                <td>{{ odc.total_amount }}</td>
+                                                            {% endif %}
+                                                            <td>100%</td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
 
-{#                                    {% for orden in ordenes %}#}
-{#                                        {% if  orden.user.id    and orden.orden_de_compra != "1" and orden.orden_de_compra != "2" and  orden.orden_de_compra != "3" %}#}
-{#                                            <td><a href="{% url 'odc1' cliente_id=foo.id %}">Generar</a></td>#}
-{#                                              <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>#}
-{#                                            <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>#}
-{#                                        {% endif %}#}
-{#                                        {% if orden.user.id  and orden.orden_de_compra == "1" %}#}
-{#                                            <td> {{ orden.total_amount  }}</td>#}
-{#                                            <td><a href="{% url 'odc2' cliente_id=foo.id %}">Generar</a></td>#}
-{#                                            <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>#}
-{#                                        {% endif %}#}
-{#                                        {% if orden.user.id  and orden.orden_de_compra|length == 2  %}#}
-{#                                            <td> {{ orden.total_amount  }}</td>#}
-{#                                            <td><a href="{% url 'odc3' cliente_id=foo.id %}">Generar</a></td>#}
-{#                                        {% endif %}#}
-{#                                    {% endfor %}#}
 
-                                <td>estatus</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+
+                                                  <tr>
+                                                    <td>Mano de Obra(Retiro efectivo cajero)</td>
+                                                    <td>{$ ord22 $}</td>
+                                                    <td>-20%</td>
+                                                  </tr>
+
+                                                </tbody>
+                                              </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                </td>
+                        </div>
+                                <td>
+                                    <a href="{% url 'enviar_email' cliente_id=foo.id %}">Enviar</a>
+                                </td>
+
                             {% endif %}
                         {% endfor %}
                   </tr>
@@ -194,8 +212,6 @@
 		 </table>
         </div>
     </div>
-
-
 
 {% endblock contenido %}
 
@@ -214,13 +230,25 @@
 				$scope.calculate = function(){
 					 $scope.manoObra = (parseInt($scope.montoInicial) * 20 /100);
 					 //cobtenemos el  20%
+
 					 $scope.monto1 = ($scope.montoInicial)-(parseInt($scope.montoInicial) * 20 /100);
-					 $scope.comisionA = $scope.monto1 * 4 /100;
-					 //obtenemos el 4%
-					 $scope.monto2 = $scope.monto1 - $scope.comisionA;
-					 $scope.iva = $scope.monto2 * 16 / 100;
+                    $scope.veinteiva = (parseInt($scope.monto1) * 20 /100);
+					 $scope.iva =  $scope.monto1 - $scope.veinteiva ;
 					 //obtenemos el iva
-					 $scope.total  = $scope.monto2 - $scope.iva;
+
+				}
+			}]);
+
+            app.controller('FacturaController',['$scope', function($scope){
+                $scope.ord1 = {};
+                $scope.ord2 = {};
+                $scope.ord3 = {};
+				$scope.ordeness = function(){
+					 $scope.ord11 = (parseInt($scope.ord1));
+                     $scope.ord22 = (parseInt($scope.ord2));
+                    $scope.ord33 = (parseInt($scope.ord3));
+
+
 				}
 			}]);
 

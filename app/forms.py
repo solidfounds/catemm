@@ -27,15 +27,12 @@ class PrimerRegistroFORM(ModelForm):
 class SegundoRegistroForm(ModelForm):
     class Meta:
         model = SegundoRegistro
-        fields = ('cliente', 'caratula', 'tarjeta_de_mejoravit', 'numero_tarjeta', 'tarjeta_entregada', 'tarjeta_activa', 'tarjeta_fondos', 'credito')
+        fields = ('cliente', 'caratula', 'tarjeta_de_mejoravit','credito')
         widgets={
             #'cliente': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm col-sm-4'}),
              'caratula': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm  col-sm-4'}),
              'tarjeta_de_mejoravit': forms.ClearableFileInput(attrs={'type':'file','class':'form-control form-control-sm  col-sm-4'}),
              'numero_tarjeta': forms.TextInput(attrs={'type':'select','required':'true','class':'form-control form-control-sm  col-md-2','placeholder':'ejemplo: 4488-9988-5533-1122', 'max':"9999999999999999"}),
-             'tarjeta_entregada': forms.CheckboxInput(attrs={'class':'form-control form-control-sm  col-md-2'}),
-             'tarjeta_activa': forms.CheckboxInput(attrs={'class':'form-control form-control-sm  col-md-2'}),
-             'tarjeta_fondos': forms.CheckboxInput(attrs={'class':'form-control form-control-sm  col-md-2 '}),
              'credito': forms.TextInput(attrs={'type':'number','required':'true','class':'form-control form-control-sm  col-md-2','max':"9999999999",'placeholder':'Debe contener puntos decimales: 1500.00'}),
          }
 
@@ -46,3 +43,12 @@ class OrderForm(ModelForm):
         model = Order
         exclude = ('user', 'id', 'total_amount')
         fields = ('orden_compra',)
+
+class EmailOdcsForm(forms.Form):
+    name = forms.CharField(max_length=25)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required=False, widget=forms.Textarea)
+    # ord1 = forms.CharField(widget=forms.TextInput(attrs={"type":'hidden', 'value': '{{ foo.total_amount }}'}))
+    # ord2 = forms.CharField(widget=forms.TextInput(attrs={"type":'hidden', 'value': '{{foo.total_amount }}'}))
+    # ord3 = forms.CharField(widget=forms.TextInput(attrs={}))

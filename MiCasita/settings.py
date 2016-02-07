@@ -126,3 +126,9 @@ SUIT_CONFIG = {
         'auth': 'icon-lock',
     }
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'soldiddfouns@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

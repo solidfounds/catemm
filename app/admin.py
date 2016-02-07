@@ -17,8 +17,8 @@ class PrimerRegistroAdmin(admin.ModelAdmin):
 
 @admin.register(SegundoRegistro)
 class SegundoRegistroAdmin(admin.ModelAdmin):
-    list_display = ('cliente', 'fecha', 'caratula','tarjeta_de_mejoravit', 'numero_tarjeta','tarjeta_entregada','tarjeta_fondos','tarjeta_activa','credito', 'operador', 'comision')
-    list_filter = ('fecha','tarjeta_entregada','tarjeta_activa','tarjeta_fondos','operador' )
+    list_display = ('cliente', 'fecha', 'caratula','tarjeta_de_mejoravit', 'numero_tarjeta','credito', 'operador', 'comision')
+    list_filter = ('fecha','operador' )
     search_fields = ('caratula', 'numero_tarjeta', 'cliente')
 
 

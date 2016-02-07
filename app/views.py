@@ -1,7 +1,8 @@
 from itertools import chain
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import PrimerRegistroFORM,SegundoRegistroForm, OrderForm
+from .forms import PrimerRegistroFORM,SegundoRegistroForm, OrderForm, EmailOdcsForm
 from django.http import HttpResponseRedirect
 from .models import PrimerRegistro, SegundoRegistro, Productos, ProductOrder, Order
 from users.models import User
@@ -31,6 +32,10 @@ def clientes(request):
     orden1 = Order.objects.filter(Q(orden_compra = "1") & Q(operador__username__contains= usuario))
     orden2 = Order.objects.filter(Q(orden_compra = "2") & Q(operador__username__contains= usuario))
     orden3 = Order.objects.filter(Q(orden_compra = "3") & Q(operador__username__contains= usuario))
+    # odcf  = ['1', '2', '3']
+    # q_objects = Q()
+
+    odcs =  Order.objects.filter(Q(operador__username__contains= usuario))
     return render(request, 'clientes.html', {
         'cliente': cliente,
         'tarjeta': tarjeta,
@@ -38,6 +43,7 @@ def clientes(request):
         'orden1': orden1,
         'orden2': orden2,
         'orden3': orden3,
+        'odcs': odcs,
     })
 
 @login_required(login_url='/')
@@ -246,7 +252,33 @@ def saveOrderProducts(order_content, order):
     return amount
 
 
+from django.db.models import Sum
+def enviar_email(request, cliente_id=None):
+    posta = Order.objects.filter(user=cliente_id ).aggregate(Sum('total_amount'))
+    post = Order.objects.filter(user=cliente_id )
+    sent = False
+    if request.method == 'POST':
+        form =  EmailOdcsForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            #post_url = request.build_absolute_uri(post.get_absolute_url())
+            #fetch = [(f.order_date) for f in Order.objects.filter(user = cliente_id)]
+            allorder = [(p.total_amount) for p in  Order.objects.filter(user=cliente_id )]
+            subject = '{}  recommends you reading "{}"'.format(cd['name'], cd['email'],)
+            message = 'Cliente Listo \n\n{}\'s  datos Orden 1:{}\n\n Orden 2:{}\n\n Orden 3: {}\n\n Total:{}  comments: {} '.format( cd['name'],allorder[0],allorder[1],allorder[2]   ,posta['total_amount__sum'],cd['comments'],)
+            send_mail(subject, message, 'soldiddfouns@gmail.com', [cd['to']])
+            sent = True
+            redirect('clientes')
+        else:
+            return redirect('clientes')
+    else:
+        form = EmailOdcsForm()
 
+    return render(request, 'enviar.html', {'post':post,
+                                           'posta':posta,
+                                           'form': form,
+                                           'sent': sent,
+                                           })
 
 
 
