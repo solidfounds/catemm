@@ -6,13 +6,18 @@ from django.forms import ModelForm
 class PrimerRegistroFORM(ModelForm):
     class Meta:
         model = PrimerRegistro
-        fields = ('nombre', 'apellidos', 'direccion', 'nsn','telefono','empresa','registro_patronal','comision','ife','email','numero_de_cuenta','banco')
+        fields = ('nombre', 'apellidos', 'calle','numero','colonia_o_fraccionamiento','municipio_o_delegacion','endidad','cp', 'nss','telefono','empresa','registro_patronal','comision','ife','numero_de_cuenta','banco')
         #exclude = ['operador_que_lo_registro',]
         widgets={
             'nombre': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm  col-md-2'}),
             'apellidos': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm  col-md-2'}),
-            'direccion': forms.Textarea(attrs={'rows':3,'cols':3,'type':'text','required':'true','class':'form-control form-control-sm'}),
-            'nsn': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm','min':'8', 'max':"10"}),
+            'calle': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
+            'numero': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
+            'colonia_o_fraccionamiento': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
+            'municipio_o_delegacion': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
+            'endidad': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
+            'cp': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
+            'nss': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm','min':'8', 'max':"10"}),
             'telefono': forms.TextInput(attrs={'type':'number','required':'true','class':'form-control form-control-sm','placeholder':'Lada - digitos', 'max':"9999000000"}),
             'empresa': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm','placeholder':'Nombre de la empresa'}),
             'registro_patronal': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm','placeholder':'Número de registro patronal'}),
@@ -23,7 +28,6 @@ class PrimerRegistroFORM(ModelForm):
             'banco': forms.TextInput(attrs={'type':'text','required':'true','class':'form-control form-control-sm'}),
 
         }
-
 class SegundoRegistroForm(ModelForm):
     class Meta:
         model = SegundoRegistro

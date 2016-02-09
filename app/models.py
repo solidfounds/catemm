@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -10,15 +11,20 @@ from django.utils import timezone
 class PrimerRegistro(models.Model):
     nombre = models.CharField(max_length=55)
     apellidos = models.CharField(max_length=80)
-    direccion = models.TextField('dirección', )
-    nsn = models.CharField(max_length=15)
-    telefono = models.PositiveIntegerField('teléfono', )
+    calle = models.CharField(max_length=80, null=True)
+    numero = models.CharField(max_length=20, null=True)
+    colonia_o_fraccionamiento = models.CharField(max_length=200, null=True)
+    municipio_o_delegacion = models.CharField(max_length=200, null=True)
+    endidad = models.CharField(max_length=50, null=True)
+    cp = models.CharField(max_length=20, null=True)
+    nss = models.CharField( 'nss', max_length=11, null=True)
+    telefono = models.PositiveIntegerField('teléfono' )
     empresa = models.CharField(max_length=254)
     registro_patronal = models.CharField(max_length=15)
     comision = models.DecimalField('comisión', max_digits=7, decimal_places=2)
     ife = models.FileField(upload_to='media/ifes')
 
-    email = models.EmailField()
+    #email = models.EmailField()
     numero_de_cuenta = models.CharField('número de cuenta', max_length=16)
     banco = models.CharField(max_length=15)
     operador = models.ForeignKey('users.User', null=True, blank=True)

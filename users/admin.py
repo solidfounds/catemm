@@ -3,6 +3,7 @@ from .models import User, Sucursal
 
 # Register your models here.
 
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username','password', 'email', 'first_name', 'last_name', 'tipo', 'porcentaje_ganancia', 'sucursal', 'clave', 'num_de_cuenta','banco')

@@ -9,9 +9,9 @@ class ProductosAdmin(admin.ModelAdmin):
 
 @admin.register(PrimerRegistro)
 class PrimerRegistroAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'apellidos', 'direccion','nsn','telefono','empresa','registro_patronal','comision','ife','email','numero_de_cuenta','banco')
+    list_display = ('nombre', 'apellidos', 'calle','numero','colonia_o_fraccionamiento','municipio_o_delegacion','endidad','cp','nss','telefono','empresa','registro_patronal','comision','ife','numero_de_cuenta','banco')
     list_filter = ('empresa',)
-    search_fields = ('nombre', 'id', 'nsn', 'registro_patronal', 'email', 'numero_de_cuenta')
+    search_fields = ('nombre', 'id', 'nss', 'registro_patronal', 'numero_de_cuenta')
     #list_filter = ('operador_que_lo_registro__nombre','fecha')
     pass
 
