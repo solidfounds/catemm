@@ -1,5 +1,6 @@
 pillow == 3.1.0
 django-suit == 0.3a3
+pytz = 15.7
 
 dj-database-url==0.3.0
 Django==1.8.8

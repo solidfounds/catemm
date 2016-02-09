@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  PrimerRegistro,SegundoRegistro, Productos, Order, ProductOrder
+from .models import  PrimerRegistro,SegundoRegistro, Productos, Order, ProductOrder, RelacionP
 from users.models import Sucursal
 
 @admin.register(Productos)
@@ -34,3 +34,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('order_date','orden_compra','operador__username',)
 
 
+@admin.register(RelacionP)
+class RelacionP(admin.ModelAdmin):
+    pass

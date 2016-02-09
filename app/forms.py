@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from .models import PrimerRegistro, SegundoRegistro, Order
+from .models import PrimerRegistro, SegundoRegistro, Order, RelacionP
 from django import forms
 from django.forms import ModelForm
 
@@ -52,3 +52,11 @@ class EmailOdcsForm(forms.Form):
     # ord1 = forms.CharField(widget=forms.TextInput(attrs={"type":'hidden', 'value': '{{ foo.total_amount }}'}))
     # ord2 = forms.CharField(widget=forms.TextInput(attrs={"type":'hidden', 'value': '{{foo.total_amount }}'}))
     # ord3 = forms.CharField(widget=forms.TextInput(attrs={}))
+
+class BuscarDiaForm(forms.Form):
+    fecha = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+class RelacionPFprm(ModelForm):
+    class Meta:
+        model = RelacionP
+        fields = ('fecha', 'cliente', 'odc1', 'odc2', 'odc3', 'pag_clie', 'p_asesor', 'comision', 'com_t', 'asesor', 'ref_pago', 'importe')

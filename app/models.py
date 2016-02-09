@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
+from django.utils import timezone
 
 # Create your models here.
 
@@ -115,3 +115,23 @@ class ProductOrder(models.Model):
 
     def importe(self):
         return (self.product.price * self.quantity)
+
+
+class RelacionP(models.Model):
+    fecha = models.DateTimeField(default=timezone.now)
+    cliente = models.ForeignKey(PrimerRegistro)
+    odc1= models.DecimalField('Ordende Compra 1',max_digits=7, decimal_places=2)
+    odc2 = models.DecimalField('Orden de Compra 2',max_digits=7, decimal_places=2)
+    odc3 = models.DecimalField('Orden de Compra 3', max_digits=7, decimal_places=2)
+    pag_clie = models.DecimalField('Pago Cliente',max_digits=7, decimal_places=2)
+    p_asesor = models.DecimalField('% Asesor',max_digits=7, decimal_places=2)
+    comision = models.DecimalField('Comisión',max_digits=7, decimal_places=2)
+    com_t = models.DecimalField('Comisón Total',max_digits=7, decimal_places=2)
+    asesor = models.ForeignKey('users.User')
+    ref_pago = models.CharField('Referencia de Pago',max_length=20)
+    importe = models.DecimalField('Importe',max_digits=7, decimal_places=2)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[self.fecha.year,
+                                                 self.fecha.strftime('%m'),
+                                                 self.fecha.strftime('%d'),])

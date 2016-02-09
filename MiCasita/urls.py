@@ -18,6 +18,7 @@ from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from django.conf.urls import patterns, url
 from users.views import userlogin
+from app import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -41,8 +42,9 @@ urlpatterns = [
     url(r'^editar/segundo_registro/(?P<pk>\d+)', 'app.views.SegundoRegistroEdit', name='editar_segundo_registro'),
     url(r'^eliminar/(?P<pk>\d+)$', 'app.views.SegundoRegistroDelete', name='eliminar_segundo_registro'),
     url(r'^(?P<cliente_id>\d+)$', 'app.views.enviar_email', name='enviar_email'),
+    url(r'^calendario/$', 'app.views.calendario', name='caledario'),
 
-
+    url(r'^dia/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$',views.dia, name='post_detail'),
 ]
 
 
